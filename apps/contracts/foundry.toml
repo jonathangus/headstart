@@ -11,7 +11,7 @@ remappings = [
     ]
 
 [rpc_endpoints]
-mumbai = "https://rpc-mumbai.matic.today"
+mumbai = "${MUMBAI_RPC}"
 
 [etherscan]
 mumbai = { key = "${MUMBAI_ETHERSCAN_API_KEY}", chain = 80001 }
