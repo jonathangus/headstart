@@ -10,4 +10,11 @@ remappings = [
     '@erc6551/contracts/=lib/reference/src/',
     ]
 
+[rpc_endpoints]
+mumbai = "https://rpc-mumbai.matic.today"
+
+[etherscan]
+mumbai = { key = "${MUMBAI_ETHERSCAN_API_KEY}", chain = 80001 }
+
+
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
