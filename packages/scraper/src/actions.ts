@@ -12,15 +12,7 @@ const client = createPublicClient({
   transport,
 });
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<any>
-) {
-  const { user, posts } = req.body as {
-    posts: PostObject[];
-    user: UserObject;
-  };
-
+export const createUser = async (user: UserObject): Promise<void> => {
   const userData = {
     handle: user.handle,
     imageURI: user.imageURI,
@@ -28,7 +20,9 @@ export default async function handler(
     followModuleInitData: '0x',
     followNFTURI: 'ipfs://QmRQ38pPu99Znd9jjQ1gUeSN6G8w5M2spQA7z2nNSs3rh6',
   };
+};
 
+export const createPosts = async (posts: PostObject[]): Promise<void> => {
   const postsData = posts.map((post) => ({
     contentURI: post.contentURI,
     collectModule: '0x00',
@@ -36,10 +30,4 @@ export default async function handler(
     referenceModule: '0x00',
     referenceModuleInitData: '0x',
   }));
-
-  // await contract.createUser()
-
-  const blockNumber = await client.getBlockNumber();
-
-  res.status(200).json({ name: 'John Doe', br: Number(blockNumber) });
-}
+};
