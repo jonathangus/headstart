@@ -2,10 +2,13 @@ export type Context = {
   id: string;
 };
 
-type UserObject = {};
+export type UserObject = {
+  handle: string;
+  imageURI: string;
+};
 
-type PostObject = {
-  ipfsMetadata: string;
+export type PostObject = {
+  contentURI: string;
 };
 
 export type Service = {

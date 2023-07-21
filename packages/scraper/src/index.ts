@@ -1,6 +1,6 @@
 import { prompt } from 'enquirer';
 import { service as dribble } from './dribble';
-import { Service } from './types';
+import { Service } from 'shared-types';
 import axios from 'axios';
 
 const main = async () => {
