@@ -1,5 +1,6 @@
 module.exports = {
   reactStrictMode: false,
+  transpilePackages: ['ui', 'shared-types'],
 
   typescript: {
     // !! WARN !!
