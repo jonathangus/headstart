@@ -1,9 +1,10 @@
 import 'dotenv/config';
 import { prompt } from 'enquirer';
-import { service as dribble } from './dribble';
+import { service as dribble } from './platforms/dribble';
 import { Service } from 'shared-types';
 import axios from 'axios';
 import chalk from 'chalk';
+import { createUser } from './actions';
 
 const main = async () => {
   //   const response = await prompt([
@@ -37,12 +38,15 @@ const main = async () => {
   let API_ENDPOINT = 'https://ethcc-web.vercel.app/api/convert';
   API_ENDPOINT = 'http://localhost:3000/api/convert';
 
-  console.log('uploading to api...');
-  await axios.post(API_ENDPOINT, {
-    user,
-    posts,
-  });
-  console.log(chalk.bgGreen('succesfully created user onchain'));
+  console.log(`creating user onchain`);
+  await createUser(user);
+  console.log(`creating user ${chalk.green('done')}`);
+
+  console.log(`creating posts onchain`);
+  await createUser(user);
+  console.log(`creating posts ${chalk.green('done')}`);
+
+  console.log(chalk.bgGreen('DONE'));
 };
 
 main();

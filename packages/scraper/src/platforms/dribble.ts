@@ -3,7 +3,7 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 import path from 'path';
-import { uploadImageToIpfs, uploadToIpfs } from './ipfs';
+import { uploadImageToIpfs, uploadToIpfs } from '../ipfs';
 import chalk from 'chalk';
 
 const tmpPath = path.resolve(__dirname, '../tmp');
@@ -45,7 +45,7 @@ export const service: Service = {
   },
 
   getPosts: async () => {
-    console.log(`fetching content from ${chalk.red(service)}`);
+    console.log(`fetching content from ${chalk.red(SERVICE)}`);
 
     const data = [
       {
@@ -55,7 +55,7 @@ export const service: Service = {
     ];
 
     console.log(
-      `uploading ${chalk.cyan(data.length)}  items to ${chalk.blueBright(
+      `uploading ${chalk.cyan(data.length)} items to ${chalk.blueBright(
         'ipfs'
       )}`
     );
