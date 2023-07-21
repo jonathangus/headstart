@@ -6,7 +6,7 @@ import {Ownable} from '@openzeppelin/contracts/access/Ownable.sol';
 
 import {IERC6551Registry} from '@tokenbound/contracts/interfaces/IERC6551Registry';
 
-contract Unswosh is ERC721, Ownable {
+contract UnswoshNFT is ERC721, Ownable {
     IERC6551Registry public registry;
 
     address public accountImplementation;
