@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 import path from 'path';
 import { uploadImageToIpfs, uploadToIpfs } from './ipfs';
+import chalk from 'chalk';
 
 const tmpPath = path.resolve(__dirname, '../tmp');
 
@@ -17,6 +18,7 @@ export const service: Service = {
     let imageURI =
       'https://ipfs.io/ipfs/QmcfP6PSQFzxMYkCZY88VtR5TZcq58gvQg6PTpL5DvNrk2';
 
+    console.log('uploading user image to ' + chalk.green('ipfs'));
     // const fileName = path.join(tmpPath, uuidv4() + '.png');
     // const response = await axios({
     //   method: 'get',
@@ -35,6 +37,7 @@ export const service: Service = {
     // const imageURI = await uploadImageToIpfs(fileName);
     // fs.unlink
 
+    console.log('user image URI is ', chalk.yellow(imageURI));
     return {
       handle: `${args.name}.${SERVICE}`,
       imageURI,
@@ -42,12 +45,20 @@ export const service: Service = {
   },
 
   getPosts: async () => {
+    console.log(`fetching content from ${chalk.red(service)}`);
+
     const data = [
       {
         title: 'my input thing',
         image: 'https://cdn.anotherblock.io/logo.png',
       },
     ];
+
+    console.log(
+      `uploading ${chalk.cyan(data.length)}  items to ${chalk.blueBright(
+        'ipfs'
+      )}`
+    );
 
     const postsPromises = data.map(async (post) => {
       // upload to ipfs

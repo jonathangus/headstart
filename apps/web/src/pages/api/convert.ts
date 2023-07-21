@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { createPublicClient, http } from 'viem';
 import { polygonMumbai } from 'viem/chains';
 import { UserObject, PostObject } from 'shared-types';
+import chalk from 'chalk';
 
 const transport = http(
   `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_KEY}`
@@ -20,6 +21,8 @@ export default async function handler(
     posts: PostObject[];
     user: UserObject;
   };
+
+  console.log({ user, posts });
 
   const userData = {
     handle: user.handle,
