@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { prompt } from 'enquirer';
 import { service as dribble } from './dribble';
 import { Service } from 'shared-types';
@@ -19,14 +20,16 @@ const main = async () => {
 
   const service: Service = dribble;
 
-  const user = await service.getUser();
-  const posts = await service.getPosts();
+  const user = await service.getUser({});
+  const posts = await service.getPosts({});
 
-  const API_ENDPOINT = '';
-  await axios.post(API_ENDPOINT, {
-    user,
-    posts,
-  });
+  console.log(posts);
+
+  // const API_ENDPOINT = '';
+  // await axios.post(API_ENDPOINT, {
+  //   user,
+  //   posts,
+  // });
 };
 
 main();

@@ -12,6 +12,6 @@ export type PostObject = {
 };
 
 export type Service = {
-  getUser: () => Promise<UserObject>;
-  getPosts: () => Promise<PostObject[]>;
+  getUser: (args: any) => Promise<UserObject>;
+  getPosts: (args: any) => Promise<PostObject[]>;
 };
