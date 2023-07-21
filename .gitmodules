@@ -7,3 +7,6 @@
 [submodule "apps/contracts/lib/account-abstraction"]
 	path = apps/contracts/lib/account-abstraction
 	url = https://github.com/eth-infinitism/account-abstraction
+[submodule "apps/contracts/lib/core"]
+	path = apps/contracts/lib/core
+	url = https://github.com/lens-protocol/core
