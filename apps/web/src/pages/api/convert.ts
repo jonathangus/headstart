@@ -21,13 +21,12 @@ export default async function handler(
     user: UserObject;
   };
 
-  // await contract.createUser()
   const userData = {
     handle: user.handle,
     imageURI: user.imageURI,
-    followModule: '0x...',
+    followModule: '0x0000000000000000000000000000000000000000',
     followModuleInitData: '0x',
-    followNFTURI: '',
+    followNFTURI: 'ipfs://QmRQ38pPu99Znd9jjQ1gUeSN6G8w5M2spQA7z2nNSs3rh6',
   };
 
   const postsData = posts.map((post) => ({
@@ -37,6 +36,8 @@ export default async function handler(
     referenceModule: '0x00',
     referenceModuleInitData: '0x',
   }));
+
+  // await contract.createUser()
 
   const blockNumber = await client.getBlockNumber();
 
