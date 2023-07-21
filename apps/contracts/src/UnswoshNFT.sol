@@ -4,7 +4,7 @@ pragma solidity ^0.8.10;
 import {ERC721} from '@openzeppelin/contracts/token/ERC721/ERC721.sol';
 import {Ownable} from '@openzeppelin/contracts/access/Ownable.sol';
 
-import {IERC6551Registry} from '@tokenbound/contracts/interfaces/IERC6551Registry';
+import {IERC6551Registry} from '@erc6551/contracts/interfaces/IERC6551Registry.sol';
 
 contract UnswoshNFT is ERC721, Ownable {
     IERC6551Registry public registry;
