@@ -10,3 +10,6 @@
 [submodule "apps/contracts/lib/core"]
 	path = apps/contracts/lib/core
 	url = https://github.com/lens-protocol/core
+[submodule "apps/contracts/lib/reference"]
+	path = apps/contracts/lib/reference
+	url = https://github.com/erc6551/reference
