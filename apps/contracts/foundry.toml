@@ -6,6 +6,7 @@ libs = ["lib"]
 remappings = [
     '@account-abstraction/contracts/=lib/account-abstraction/contracts/',
     '@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/',
+    '@lens-protocol/contracts/=lib/core/contracts/',
     ]
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
