@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 
-export const getDribbleContent = async () => {
+export const getDribbleContent = async (name: string) => {
   const browser = await puppeteer.launch({
     defaultViewport: null,
     headless: 'new',
@@ -9,7 +9,7 @@ export const getDribbleContent = async () => {
   // Open a new page
   const page = await browser.newPage();
 
-  await page.goto('https://dribbble.com/almigor', {
+  await page.goto(`https://dribbble.com/${name}`, {
     // waitUntil: 'domcontentloaded',
     waitUntil: 'networkidle0',
   });

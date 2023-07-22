@@ -7,16 +7,14 @@ import chalk from 'chalk';
 import { createPosts, createUser } from './actions';
 import fetch from 'cross-fetch';
 // @ts-ignore
-globalThis.fetch = fetch
-
-
+globalThis.fetch = fetch;
 
 const main = async () => {
   const response: any = await prompt([
     {
       type: 'input',
       name: 'name',
-      message: 'Name?',
+      message: 'Name of creator?',
     },
   ]);
 
