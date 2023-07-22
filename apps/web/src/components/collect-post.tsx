@@ -1,23 +1,24 @@
-import { useLensContext } from '@/context/lens-context';
-import { erc20ABI, lenshubFactoryABI, lenshubFactoryAddress } from 'abi';
-import { PostEntity } from 'shared-types';
+import { useLensContext } from "@/context/lens-context";
+import { LensClient, development } from "@lens-protocol/client";
+import { erc20ABI, lenshubFactoryABI, lenshubFactoryAddress } from "abi";
+import { PostEntity } from "shared-types";
 import {
   useAccount,
   useContractRead,
   useContractWrite,
   useWaitForTransaction,
-} from 'wagmi';
-import { Button } from './ui/button';
-import { useToast } from './ui/use-toast';
+} from "wagmi";
+import { Button } from "./ui/button";
+import { useToast } from "./ui/use-toast";
 import {
   createPublicClient,
   encodeAbiParameters,
   http,
   parseEther,
-} from 'viem';
-import { polygonMumbai } from 'viem/chains';
-import { useState } from 'react';
-import { WMATIC } from '@/constants';
+} from "viem";
+import { polygonMumbai } from "viem/chains";
+import { useState } from "react";
+import { WMATIC } from "@/constants";
 
 type Props = {
   post: PostEntity;
@@ -32,7 +33,11 @@ const publicClient = createPublicClient({
   transport,
 });
 
-const FEE_COLLECT_MODULE = '0xeb4f3EC9d01856Cec2413bA5338bF35CeF932D82';
+const lensClient = new LensClient({
+  environment: development,
+});
+
+const FEE_COLLECT_MODULE = "0xeb4f3EC9d01856Cec2413bA5338bF35CeF932D82";
 
 export function CollectPost({ post }: Props) {
   const { toast } = useToast();
@@ -41,7 +46,7 @@ export function CollectPost({ post }: Props) {
   const { data: allowance } = useContractRead({
     abi: erc20ABI,
     address: WMATIC,
-    functionName: 'allowance',
+    functionName: "allowance",
     args: [account as `0x${string}`, FEE_COLLECT_MODULE],
     watch: true,
   });
@@ -49,23 +54,23 @@ export function CollectPost({ post }: Props) {
   const { writeAsync: approve } = useContractWrite({
     abi: erc20ABI,
     address: WMATIC,
-    functionName: 'approve',
+    functionName: "approve",
     args: [FEE_COLLECT_MODULE, BigInt(1000000000000000)],
   });
 
   const feeCollectModuleInitData = encodeAbiParameters(
     [
-      { name: 'currency', type: 'address' },
-      { name: 'price', type: 'uint256' },
+      { name: "currency", type: "address" },
+      { name: "price", type: "uint256" },
     ],
-    [WMATIC, parseEther('0.001')]
+    [WMATIC, parseEther("0.001")]
   );
 
   let publisherId = BigInt(35699);
   let postId = BigInt(2);
 
   if (post.publicationId) {
-    const sliced = post.publicationId.split('-');
+    const sliced = post.publicationId.split("-");
 
     publisherId = BigInt(Number(sliced[0]));
     postId = BigInt(Number(sliced[1]));
@@ -75,12 +80,12 @@ export function CollectPost({ post }: Props) {
   const { write, isLoading, data } = useContractWrite({
     abi: lenshubFactoryABI,
     address: lenshubFactoryAddress,
-    functionName: 'collect',
+    functionName: "collect",
     args: [publisherId, postId, feeCollectModuleInitData],
     onError: (e) => {
       toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
         description: e.message,
       });
     },
@@ -89,6 +94,17 @@ export function CollectPost({ post }: Props) {
   const { isLoading: isLoadingTx } = useWaitForTransaction({
     hash: data?.hash,
   });
+
+  const totalCollected = async () => {
+    const xyz = await lensClient.publication.allWalletsWhoCollected({
+      publicationId: post.publicationId,
+    });
+    console.log("PUBLICATION : ", post.publicationId);
+    console.log("ITEMS : ", xyz.items);
+    console.log("TOTAL COLLECTED : ", xyz.items.length);
+  };
+
+  totalCollected();
 
   const isLoadingAnything = isLoading || isLoadingTx || isApproving;
   const collect = async () => {
@@ -105,8 +121,8 @@ export function CollectPost({ post }: Props) {
       write();
     } catch (e: any) {
       toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
         description: e.message,
       });
       setIsApproving(false);
