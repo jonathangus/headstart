@@ -1,21 +1,18 @@
+import { aaImplementationABI, erc20ABI } from 'abi';
+import { encodeFunctionData } from 'viem';
 import {
   useAccount,
   useBalance,
   useContractWrite,
-  useTransaction,
   useWaitForTransaction,
 } from 'wagmi';
 import { polygonMumbai } from 'wagmi/chains';
-import { Button } from './ui/button';
-import { encodeFunctionData } from 'viem';
-import { aaImplementationABI, erc20ABI } from 'abi';
-import { useToast } from './ui/use-toast';
+
 import { WMATIC } from '@/constants';
 import { useProfileContext } from '@/context/profile-context';
-import { ethers } from 'ethers';
-import { EthersAdapter } from '@safe-global/protocol-kit';
-import { useSafeKitContext } from '@/context/safe-kit-auth-context';
-import { useEffect } from 'react';
+
+import { Button } from './ui/button';
+import { useToast } from './ui/use-toast';
 
 export function WithdrawFunds() {
   const { user, ownerOfToken } = useProfileContext();

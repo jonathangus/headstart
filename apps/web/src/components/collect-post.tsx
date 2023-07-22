@@ -1,24 +1,25 @@
-import { useLensContext } from "@/context/lens-context";
-import { LensClient, development } from "@lens-protocol/client";
-import { erc20ABI, lenshubFactoryABI, lenshubFactoryAddress } from "abi";
-import { PostEntity } from "shared-types";
+import { erc20ABI, lenshubFactoryABI, lenshubFactoryAddress } from 'abi';
+import { PostEntity } from 'shared-types';
+import { LensClient, development } from '@lens-protocol/client';
 import {
   useAccount,
   useContractRead,
   useContractWrite,
   useWaitForTransaction,
-} from "wagmi";
-import { Button } from "./ui/button";
-import { useToast } from "./ui/use-toast";
+} from 'wagmi';
+import { useToast } from './ui/use-toast';
 import {
   createPublicClient,
   encodeAbiParameters,
   http,
   parseEther,
-} from "viem";
-import { polygonMumbai } from "viem/chains";
-import { useState } from "react";
-import { WMATIC } from "@/constants";
+} from 'viem';
+
+import { polygonMumbai } from 'viem/chains';
+import { useState } from 'react';
+import { WMATIC } from '@/constants';
+
+import { Button } from './ui/button';
 
 type Props = {
   post: PostEntity;
@@ -37,7 +38,7 @@ const lensClient = new LensClient({
   environment: development,
 });
 
-const FEE_COLLECT_MODULE = "0xeb4f3EC9d01856Cec2413bA5338bF35CeF932D82";
+const FEE_COLLECT_MODULE = '0xeb4f3EC9d01856Cec2413bA5338bF35CeF932D82';
 
 export function CollectPost({ post }: Props) {
   const { toast } = useToast();
@@ -46,7 +47,7 @@ export function CollectPost({ post }: Props) {
   const { data: allowance } = useContractRead({
     abi: erc20ABI,
     address: WMATIC,
-    functionName: "allowance",
+    functionName: 'allowance',
     args: [account as `0x${string}`, FEE_COLLECT_MODULE],
     watch: true,
   });
@@ -54,16 +55,16 @@ export function CollectPost({ post }: Props) {
   const { writeAsync: approve } = useContractWrite({
     abi: erc20ABI,
     address: WMATIC,
-    functionName: "approve",
+    functionName: 'approve',
     args: [FEE_COLLECT_MODULE, BigInt(1000000000000000)],
   });
 
   const feeCollectModuleInitData = encodeAbiParameters(
     [
-      { name: "currency", type: "address" },
-      { name: "price", type: "uint256" },
+      { name: 'currency', type: 'address' },
+      { name: 'price', type: 'uint256' },
     ],
-    [WMATIC, parseEther("0.001")]
+    [WMATIC, parseEther('0.001')]
   );
 
   let publisherId = BigInt(35699);
@@ -79,12 +80,12 @@ export function CollectPost({ post }: Props) {
   const { write, isLoading, data } = useContractWrite({
     abi: lenshubFactoryABI,
     address: lenshubFactoryAddress,
-    functionName: "collect",
+    functionName: 'collect',
     args: [publisherId, postId, feeCollectModuleInitData],
     onError: (e) => {
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: e.message,
       });
     },
@@ -98,9 +99,9 @@ export function CollectPost({ post }: Props) {
     const xyz = await lensClient.publication.allWalletsWhoCollected({
       publicationId: post.publicationId,
     });
-    console.log("PUBLICATION : ", post.publicationId);
-    console.log("ITEMS : ", xyz.items);
-    console.log("TOTAL COLLECTED : ", xyz.items.length);
+    console.log('PUBLICATION : ', post.publicationId);
+    console.log('ITEMS : ', xyz.items);
+    console.log('TOTAL COLLECTED : ', xyz.items.length);
   };
 
   totalCollected();
@@ -120,8 +121,8 @@ export function CollectPost({ post }: Props) {
       write();
     } catch (e: any) {
       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
         description: e.message,
       });
       setIsApproving(false);

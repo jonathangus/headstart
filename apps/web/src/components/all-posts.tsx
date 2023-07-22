@@ -1,6 +1,8 @@
+import { PostEntity } from 'shared-types';
+
 import { usePostsQuery } from '@/hooks/use-posts-query';
+
 import { PostsList } from './posts-list';
-import { LensPost, PostEntity } from 'shared-types';
 
 type Props = {
   realPosts: PostEntity[];

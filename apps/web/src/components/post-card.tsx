@@ -1,4 +1,9 @@
+import { HeartIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
 import { PostEntity } from 'shared-types';
+
+import { Button } from '@/components/ui/button';
+
 import {
   Card,
   CardContent,
@@ -7,12 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from '../components/ui/card';
-
-import { Button } from '@/components/ui/button';
-import { HeartIcon } from '@radix-ui/react-icons';
-import { MagicWandIcon } from '@radix-ui/react-icons';
 import { CollectPost } from './collect-post';
-import Link from 'next/link';
 
 type Props = {
   post: PostEntity;

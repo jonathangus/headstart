@@ -1,8 +1,7 @@
-import Image from 'next/image';
 import { Inter } from 'next/font/google';
-import { Button } from '@/components/ui/button';
+
 import { AllPosts } from '@/components/all-posts';
-import { getHomeData, getProfiles } from '@/utils/api';
+import { getHomeData } from '@/utils/api';
 
 const inter = Inter({ subsets: ['latin'] });
 

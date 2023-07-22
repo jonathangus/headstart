@@ -1,29 +1,25 @@
+import { DownloadIcon } from '@radix-ui/react-icons';
+import { AvatarIcon } from '@radix-ui/react-icons';
+import { ReloadIcon } from '@radix-ui/react-icons';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 import { useState } from 'react';
+import { useAccount } from 'wagmi';
+
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-
-import { Button } from './ui/button';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useAccount } from 'wagmi';
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
-import { useToast } from './ui/use-toast';
-
-import { DownloadIcon } from '@radix-ui/react-icons';
-import { AvatarIcon } from '@radix-ui/react-icons';
-import { ReloadIcon } from '@radix-ui/react-icons';
-
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useProfileContext } from '@/context/profile-context';
 import { useSafeKitContext } from '@/context/safe-kit-auth-context';
-import { GenerateWallet } from './generate-wallet';
+
+import { Button } from './ui/button';
+import { useToast } from './ui/use-toast';
 
 export function ClaimModal() {
   const { user, isClaimed } = useProfileContext();

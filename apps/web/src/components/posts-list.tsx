@@ -1,4 +1,5 @@
 import { PostEntity } from 'shared-types';
+
 import { PostCard } from './post-card';
 
 type Props = {

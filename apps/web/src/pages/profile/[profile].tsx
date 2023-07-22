@@ -1,28 +1,18 @@
-import { PostsList } from '@/components/posts-list';
 import { GetStaticPaths } from 'next';
 import { useRouter } from 'next/router';
 import { PostEntity, UserEntity } from 'shared-types';
 
+import { ClaimModal } from '@/components/claim-modal';
+import { PostsList } from '@/components/posts-list';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Skeleton } from '@/components/ui/skeleton';
-
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
-import { DownloadIcon } from '@radix-ui/react-icons';
-import { AvatarIcon } from '@radix-ui/react-icons';
-import { ClaimModal } from '@/components/claim-modal';
-import { WithdrawFunds } from '@/components/withdraw-funds';
-import { getPostsByUser, getProfile } from '@/utils/api';
+import { Skeleton } from '@/components/ui/skeleton';
 import { ProfileContextProvider } from '@/context/profile-context';
-import { GenerateWallet } from '@/components/generate-wallet';
 import { SafeKitContextProvider } from '@/context/safe-kit-auth-context';
-import { SafekitLogin } from '@/components/safekit-login';
+import { getPostsByUser, getProfile } from '@/utils/api';
 
 type Props = {
   user: UserEntity;

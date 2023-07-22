@@ -1,7 +1,8 @@
-import { useSafeKitContext } from '@/context/safe-kit-auth-context';
-import { Button } from './ui/button';
-import { DownloadIcon } from '@radix-ui/react-icons';
 import { ReloadIcon } from '@radix-ui/react-icons';
+
+import { useSafeKitContext } from '@/context/safe-kit-auth-context';
+
+import { Button } from './ui/button';
 
 type Props = {
   onNextStep: () => void;

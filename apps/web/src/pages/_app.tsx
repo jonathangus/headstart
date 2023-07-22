@@ -1,32 +1,23 @@
 import './globals.css';
-import type { AppProps } from 'next/app';
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
 import '@rainbow-me/rainbowkit/styles.css';
-import { Inter } from 'next/font/google';
-import { SafeThemeProvider } from '@safe-global/safe-react-components';
 
 import {
   ConnectButton,
   getDefaultWallets,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+import type { AppProps } from 'next/app';
+import { Inter } from 'next/font/google';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import {
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-  zora,
   polygonMumbai,
 } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { publicProvider } from 'wagmi/providers/public';
+
 import { Toaster } from '@/components/ui/toaster';
 import { LensContextProvider } from '@/context/lens-context';
 
