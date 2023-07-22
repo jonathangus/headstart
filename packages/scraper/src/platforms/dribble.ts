@@ -12,9 +12,6 @@ const SERVICE = 'dribble';
 
 export const service: Service = {
   getUser: async (args) => {
-    const user = {
-      handle: '123',
-    };
     let imageURI =
       'https://ipfs.io/ipfs/QmcfP6PSQFzxMYkCZY88VtR5TZcq58gvQg6PTpL5DvNrk2';
 
@@ -39,7 +36,7 @@ export const service: Service = {
 
     console.log('user image URI is ', chalk.yellow(imageURI));
     return {
-      handle: `${args.name}.${SERVICE}`,
+      handle: `${args.name}_${SERVICE}`,
       imageURI,
     };
   },
