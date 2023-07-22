@@ -10,15 +10,15 @@ import {ILensHub} from "@lens-protocol/contracts/interfaces/ILensHub.sol";
 import {DataTypes} from "@lens-protocol/contracts/libraries/DataTypes.sol";
 import {MockProfileCreationProxy} from "@lens-protocol/contracts/mocks/MockProfileCreationProxy.sol";
 
-struct PartialCreateProfileData {
-    string handle;
-    string imageURI;
-    address followModule;
-    bytes followModuleInitData;
-    string followNFTURI;
-}
-
 contract UnswoshNFT is ERC721, Ownable {
+    struct PartialCreateProfileData {
+        string handle;
+        string imageURI;
+        address followModule;
+        bytes followModuleInitData;
+        string followNFTURI;
+    }
+
     ILensHub public lensHub;
     IERC6551Registry public registry;
 
@@ -26,6 +26,9 @@ contract UnswoshNFT is ERC721, Ownable {
     address public profileCreationProxyAddress;
 
     uint256 private tokenCount = 0;
+
+    mapping(uint256 => address) public accountsPerTokenId;
+    mapping(uint256 => uint256) public profileIdPerTokenId;
 
     constructor(
         address _erc6551Registry,
@@ -57,17 +60,12 @@ contract UnswoshNFT is ERC721, Ownable {
             ""
         );
 
-        DataTypes.CreateProfileData memory fullProfileData = DataTypes
-            .CreateProfileData(
-                newAccountAddress,
-                _profileData.handle,
-                _profileData.imageURI,
-                _profileData.followModule,
-                _profileData.followModuleInitData,
-                _profileData.followNFTURI
-            );
-
         MockProfileCreationProxy(profileCreationProxyAddress)
             .proxyCreateProfile(fullProfileData);
+
+        accountsPerTokenId[tokenId] = newAccountAddress;
+        profileIdPerTokenId[tokenId] = lensHub.getProfileIdByHandle(
+            _profileData.handle
+        );
     }
 }
