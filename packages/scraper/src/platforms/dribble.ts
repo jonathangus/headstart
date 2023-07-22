@@ -39,20 +39,19 @@ export const service: Service = {
     console.log('uploading to ipfs...');
     const postsPromises = data.nodes.map(async (post) => {
       // upload to ipfs
-      const body = `view full content on ${post.link}`;
+      const description = `view full content on ${post.link}`;
       const name = post.title;
       const data = {
-        version: '2.0.0',
-        metadata_id: '${uuid()}',
-        description: 'gm (🌿, 🌿)',
-        image:
-          'https://ipfs.4everland.io/ipfs/bafkreigflfr75iwyond7p4b3ggv3drivofhcakokpmftmsf35v5ukbhsva',
+        version: '1.0.0',
+        metadata_id: uuidv4(),
+        description,
+        image: post.src,
         imageMimeType: 'image/png',
-        name: 'Post by ?.lens',
+        name,
         attributes: [{ traitType: 'type', value: 'POST' }],
         media: [
           {
-            item: 'https://ipfs.4everland.io/ipfs/bafkreigflfr75iwyond7p4b3ggv3drivofhcakokpmftmsf35v5ukbhsva',
+            item: post.src,
             type: 'image/png',
             altTag: '',
           },
@@ -60,27 +59,6 @@ export const service: Service = {
         appId: 'ImageUploader',
         locale: 'en',
         mainContentFocus: 'IMAGE',
-      };
-      const dataa = {
-        version: '1.0.0',
-        metadata_id: uuidv4(),
-        description: `${body}`,
-        content: `${body}`,
-        name,
-        attributes: [
-          {
-            traitType: 'type',
-            value: 'post',
-          },
-        ],
-        media: [
-          {
-            url: post.src,
-            mimeType: 'image/png',
-            altTag: '',
-          },
-        ],
-        appId: 'eth cc',
       };
 
       const contentURI = await uploadToIpfs(data);

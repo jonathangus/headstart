@@ -24,8 +24,7 @@ export function WithdrawFunds() {
   });
   const { address: account } = useAccount();
 
-  console.log(balance?.data);
-  const amount = <div>{balance?.data?.formatted} WMATIC collected</div>;
+  const amount = <div>{balance?.data?.formatted || 0} WMATIC collected</div>;
   const { toast } = useToast();
 
   const {
@@ -69,17 +68,21 @@ export function WithdrawFunds() {
     });
 
     executeCall({
-      args: [usdcAddress, BigInt(0), data],
+      args: [WMATIC, BigInt(0), data],
     });
   };
 
   return (
-    <div>
+    <div className="flex align-center justify-center items-center">
       {amount}
 
       {/* Shouldn't be visible if the user has no funds */}
-      <Button disabled={isLoading || txLoading} onClick={withdraw}>
-        withdraw USDC
+      <Button
+        className="ml-3"
+        disabled={isLoading || txLoading}
+        onClick={withdraw}
+      >
+        withdraw WMATIC
       </Button>
     </div>
   );
