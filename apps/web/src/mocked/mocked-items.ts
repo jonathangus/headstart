@@ -5,6 +5,13 @@ import image3 from './image3.png';
 import image4 from './image4.png';
 import image5 from './image5.png';
 import image6 from './image6.png';
+import image7 from './image7.png';
+import image8 from './image8.png';
+import image9 from './image9.png';
+import image10 from './image10.png';
+
+
+
 
 export const mockedItems: PostEntity[] = [
   {
@@ -25,7 +32,7 @@ export const mockedItems: PostEntity[] = [
   },
   {
     image: image3.src,
-    title: 'onchain summer LENSTHREADS',
+    title: 'onchain summer Lens Threads',
     handle: 'zuckyberrydribble.lens',
     mocked: true,
     postId: '3',
@@ -56,27 +63,27 @@ export const mockedItems: PostEntity[] = [
     service: 'codebox',
   },
   {
-    image: image1.src,
-    title: 'Lenstagram brand identity',
-    handle: 'heavydevbehance.lens',
+    image: image7.src,
+    title: 'Polaroid 3d animation',
+    handle: 'exodusbehance.lens',
     mocked: true,
-    postId: '1',
+    postId: '7',
     service: 'Behance',
   },
   {
-    image: image2.src,
-    title: 'Train ride galore WebGL',
-    handle: 'gruvanspline.lens',
+    image: image8.src,
+    title: 'aeonikpro font work',
+    handle: 'fontmakerdribbble.lens',
     mocked: true,
-    postId: '2',
-    service: 'spline',
+    postId: '8',
+    service: 'dribbble',
   },
   {
-    image: image3.src,
-    title: 'onchain summer LENSTHREADS',
-    handle: 'zuckyberrydribble.lens',
+    image: image9.src,
+    title: 'beatuy giselle tropical font',
+    handle: 'wwriterdribble.lens',
     mocked: true,
-    postId: '3',
+    postId: '9',
     service: 'dribbble',
   },
   {
@@ -104,12 +111,12 @@ export const mockedItems: PostEntity[] = [
     service: 'codebox',
   },
   {
-    image: image1.src,
-    title: 'Lenstagram brand identity',
-    handle: 'heavydevbehance.lens',
+    image: image10.src,
+    title: 'How do I delete a Git branch locally and remotely?',
+    handle: 'MatthewSO.lens',
     mocked: true,
-    postId: '1',
-    service: 'Behance',
+    postId: '10',
+    service: 'Stackoverflow',
   },
   {
     image: image2.src,
