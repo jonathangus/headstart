@@ -79,22 +79,20 @@ export function ClaimModal() {
         <DialogDescription>
           Connect your wallet to receive your EIP-6551 tokenbound account.
         </DialogDescription>
-        <div className="w-full mb-4">
-          {account ? account : <ConnectButton />}
-        </div>
-
-        <Button
-          onClick={() => {
-            mutate({
-              receiver: account,
-              tokenId,
-            });
-          }}
-          disabled={!account}
-        >
-          <DownloadIcon className="mr-2 h-4 w-4" />
-          Redeem account
-        </Button>
+        {(!account && <ConnectButton />) || (
+          <Button
+            onClick={() => {
+              mutate({
+                receiver: account,
+                tokenId,
+              });
+            }}
+            disabled={!account}
+          >
+            <DownloadIcon className="mr-2 h-4 w-4" />
+            Redeem account
+          </Button>
+        )}
       </Dialog>
     );
   }

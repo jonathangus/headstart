@@ -59,10 +59,12 @@ export default function App({ Component, pageProps }: AppProps) {
         <RainbowKitProvider chains={chains}>
           <LensContextProvider>
             <>
-              <header>
+              <header className="flex justify-end p-4">
                 <ConnectButton />
               </header>
-              <Component {...pageProps} />
+              <main className="w-full p-24 flex flex-col place-content-center">
+                <Component {...pageProps} />
+              </main>
               <Toaster />
             </>
           </LensContextProvider>
