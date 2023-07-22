@@ -94,6 +94,13 @@ const Page = (props: Props) => {
 
 export const getStaticProps = async ({ params }) => {
   const user = await getProfile(params.profile);
+
+  if (!user) {
+    return {
+      notFound: true,
+    };
+  }
+
   const posts = await getPostsByUser(
     '0x' + Number(user.profileId).toString(16)
   );

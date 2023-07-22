@@ -33,6 +33,7 @@ export const ProfileContextProvider = ({
 
   const isClaimed = owner.toLowerCase() !== DEFAULT_OWNER.toLowerCase();
 
+  console.log({ owner, isClaimed, DEFAULT_OWNER });
   const value = {
     user,
     owner,
