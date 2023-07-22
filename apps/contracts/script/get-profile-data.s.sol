@@ -2,10 +2,11 @@
 pragma solidity ^0.8.0;
 
 import {Script} from "forge-std/Script.sol";
+import "forge-std/console.sol";
 
 import {HeadstartNFT} from "src/HeadstartNFT.sol";
 
-contract MintProfile is Script {
+contract GetProfileData is Script {
     HeadstartNFT public headstartNFT;
 
     function run() external {
@@ -18,15 +19,9 @@ contract MintProfile is Script {
         // Deploy Implementation Contracts
         headstartNFT = HeadstartNFT(0x3e85C2aEC80C2B84FF05e08FBD827C4fCaC9FD6c);
 
-        HeadstartNFT.PartialCreateProfileData memory data = HeadstartNFT.PartialCreateProfileData(
-            "pierre-dribble",
-            "https://ipfs.io/ipfs/QmcfP6PSQFzxMYkCZY88VtR5TZcq58gvQg6PTpL5DvNrk2",
-            0x0000000000000000000000000000000000000000,
-            "0x",
-            "ipfs://QmRQ38pPu99Znd9jjQ1gUeSN6G8w5M2spQA7z2nNSs3rh6"
-        );
-
-        headstartNFT.mintProfile(0xAd88438F0DF2939e383648D7d2c783C47086A5e6, data);
+        console.log("UnswoshNFT address : %s", headstartNFT.accountsPerTokenId(0));
+        console.log("Owner address: %s", headstartNFT.ownerOf(0));
+        console.log("ProfileId : %s", headstartNFT.profileIdPerTokenId(0));
 
         vm.stopBroadcast();
     }
