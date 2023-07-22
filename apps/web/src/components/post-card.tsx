@@ -1,4 +1,4 @@
-import { PostEntity } from "shared-types";
+import { PostEntity } from 'shared-types';
 import {
   Card,
   CardContent,
@@ -6,19 +6,28 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+<<<<<<< HEAD
 } from "../components/ui/card";
-
 import { Button } from "@/components/ui/button";
+
 import { HeartIcon } from "@radix-ui/react-icons";
 import { MagicWandIcon } from "@radix-ui/react-icons";
+=======
+} from '../components/ui/card';
+
+import { Button } from '@/components/ui/button';
+import { HeartIcon } from '@radix-ui/react-icons';
+import { MagicWandIcon } from '@radix-ui/react-icons';
+import { CollectPost } from './collect-post';
+>>>>>>> refs/remotes/origin/main
 
 type Props = {
   post: PostEntity;
 };
 export function PostCard({ post }: Props) {
   return (
-    <Card className="w-[350px] overflow-hidden">
-      <CardHeader className="p-0">
+    <Card className="w-full overflow-hidden">
+      <CardHeader className="p-0 max-h-[225px] justify-center overflow-hidden bg-neutral-100">
         <img src={post.image} />
       </CardHeader>
       <CardContent className="p-6 pb-0">
@@ -32,28 +41,10 @@ export function PostCard({ post }: Props) {
           <HeartIcon className="mr-2 h-4 w-4" /> like
         </Button>
         <Button variant="ghost" className="p-2">
-          <MagicWandIcon className="mr-2 h-4 w-4" /> tip
+          {/* <MagicWandIcon className="mr-2 h-4 w-4" /> tip */}
         </Button>
+        <CollectPost post={post} />
       </CardFooter>
     </Card>
   );
 }
-
-/*
-<Card className="w-[350px] overflow-hidden">
-        <CardHeader className="p-0">
-          <img src={post.image} />
-        </CardHeader>
-        <CardContent className="pt-6">
-          <CardDescription className="pb-2">{post.handle}</CardDescription>
-          <CardTitle>{post.title}</CardTitle>
-        </CardContent>
-        <CardFooter>
-          {/*           <CommandItem>
-            <RocketIcon className="mr-2 h-4 w-4" />
-            <span>Launch</span>
-          </CommandItem> }
-          </CardFooter>
-          </Card>
-
-          */
