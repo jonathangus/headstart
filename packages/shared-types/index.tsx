@@ -12,8 +12,10 @@ export type PostObject = {
 };
 
 export type Service = {
-  getUser: (args: any) => Promise<UserObject>;
-  getPosts: (args: any) => Promise<PostObject[]>;
+  sync: (args: any) => Promise<{
+    user: UserObject;
+    posts: PostObject[];
+  }>;
 };
 
 export type PostEntity = {
