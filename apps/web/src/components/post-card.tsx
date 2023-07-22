@@ -20,8 +20,8 @@ type Props = {
 export function PostCard({ post }: Props) {
   return (
     <Link href={`/profile/${post.handle}`}>
-      <Card className="w-[350px] overflow-hidden">
-        <CardHeader className="p-0">
+      <Card className="w-full overflow-hidden">
+        <CardHeader className="p-0 max-h-[225px] justify-center overflow-hidden bg-neutral-100">
           <img src={post.image} />
         </CardHeader>
         <CardContent className="p-6 pb-0">

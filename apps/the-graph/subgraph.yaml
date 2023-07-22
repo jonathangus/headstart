@@ -6,7 +6,7 @@ dataSources:
     name: HeadstartNFT
     network: mumbai
     source:
-      address: "0x4b12058605380227bd2476a0beaa6cb3674d9401"
+      address: "0xa1369C9c576694C2a312C7cf48e493d3928e38ba"
       abi: HeadstartNFT
       startBlock: 38199700
     mapping:

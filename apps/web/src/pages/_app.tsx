@@ -1,20 +1,21 @@
-import './globals.css';
-import type { AppProps } from 'next/app';
+import "./globals.css";
+import type { AppProps } from "next/app";
 import {
   useQuery,
   useMutation,
   useQueryClient,
   QueryClient,
   QueryClientProvider,
-} from '@tanstack/react-query';
-import '@rainbow-me/rainbowkit/styles.css';
+} from "@tanstack/react-query";
+import "@rainbow-me/rainbowkit/styles.css";
+import { Inter } from "next/font/google";
 
 import {
   ConnectButton,
   getDefaultWallets,
   RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
+} from "@rainbow-me/rainbowkit";
+import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import {
   mainnet,
   polygon,
@@ -22,13 +23,14 @@ import {
   arbitrum,
   zora,
   polygonMumbai,
-} from 'wagmi/chains';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { publicProvider } from 'wagmi/providers/public';
-import { Toaster } from '@/components/ui/toaster';
-import { LensContextProvider } from '@/context/lens-context';
+} from "wagmi/chains";
+import { alchemyProvider } from "wagmi/providers/alchemy";
+import { publicProvider } from "wagmi/providers/public";
+import { Toaster } from "@/components/ui/toaster";
+import { LensContextProvider } from "@/context/lens-context";
 
 const queryClient = new QueryClient();
+const inter = Inter({ subsets: ["latin"] });
 
 const { chains, publicClient } = configureChains(
   [polygonMumbai],
@@ -39,8 +41,8 @@ const { chains, publicClient } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: 'hack ethcc',
-  projectId: '.....' as any,
+  appName: "hack ethcc",
+  projectId: "....." as any,
   chains,
 });
 
@@ -57,10 +59,12 @@ export default function App({ Component, pageProps }: AppProps) {
         <RainbowKitProvider chains={chains}>
           <LensContextProvider>
             <>
-              <header>
+              <header className="flex justify-end p-4">
                 <ConnectButton />
               </header>
-              <Component {...pageProps} />
+              <main className="w-full p-24 flex flex-col place-content-center">
+                <Component {...pageProps} />
+              </main>
               <Toaster />
             </>
           </LensContextProvider>

@@ -5,6 +5,11 @@ import { Service } from 'shared-types';
 import axios from 'axios';
 import chalk from 'chalk';
 import { createPosts, createUser } from './actions';
+import fetch from 'cross-fetch';
+// @ts-ignore
+globalThis.fetch = fetch
+
+
 
 const main = async () => {
   const response: any = await prompt([

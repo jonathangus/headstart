@@ -7,13 +7,7 @@ import { getHomeData, getProfiles } from '@/utils/api';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home({ profiles, posts }) {
-  return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <AllPosts realPosts={posts} />
-    </main>
-  );
+  return <AllPosts realPosts={posts} />;
 }
 
 export const getStaticProps = async () => {
