@@ -1,5 +1,5 @@
 import { request, gql } from 'graphql-request';
-import { LensPost, PostEntity } from 'shared-types';
+import { LensPost, PostEntity, UserEntity } from 'shared-types';
 
 const postsQuery = gql`
   query GetPosts($profileIds: [ProfileId!]) {
@@ -64,7 +64,7 @@ export const getPosts = async (ids: string[]): Promise<PostEntity[]> => {
   const data = await request('https://api-mumbai.lens.dev/', postsQuery, {
     profileIds,
   });
-  console.log(profileIds);
+
   return data.publications.items.map((item: LensPost) => {
     return {
       publicationId: item.id,
@@ -88,7 +88,6 @@ export const getProfiles = async () => {
 
 export const getHomeData = async () => {
   const profiles = await getProfiles();
-  console.log({ profiles });
   const profileIds = profiles.map((profile) => profile.profileId);
   const posts = await getPosts(profileIds);
 
@@ -96,4 +95,89 @@ export const getHomeData = async () => {
     profiles,
     posts,
   };
+};
+
+export const getProfile = async (handle: string): Promise<UserEntity> => {
+  const query = gql`
+    query Profile($handle: String!) {
+      profiles(where: { handle: $handle }) {
+        id
+        accountAddress
+        ownedBy
+        tokenId
+        handle
+        profileId
+      }
+    }
+  `;
+
+  const data = await request(
+    'https://api.thegraph.com/subgraphs/name/0xpilou/ethcc-headstart',
+    query,
+    { handle }
+  );
+
+  return data.profiles[0];
+};
+
+export const getPostsByUser = async (profileId: string): Promise<any> => {
+  const query = gql`
+    query GetPostsByUser($profileId: ProfileId!) {
+      publications(
+        request: { profileId: $profileId, publicationTypes: [POST], limit: 50 }
+      ) {
+        items {
+          __typename
+          ... on Post {
+            id
+            metadata {
+              name
+              description
+              content
+              image
+              animatedUrl
+            }
+            profile {
+              id
+              name
+              bio
+              followNftAddress
+              metadata
+              handle
+              ownedBy
+
+              picture {
+                ... on NftImage {
+                  contractAddress
+                  tokenId
+                  uri
+                  verified
+                }
+                ... on MediaSet {
+                  original {
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const data = await request('https://api-mumbai.lens.dev/', query, {
+    profileId,
+  });
+
+  return data.publications.items.map((item: LensPost) => {
+    return {
+      publicationId: item.id,
+      image: item.metadata.image,
+      title: item.metadata.content,
+      handle: item.profile.handle,
+      mocked: false,
+      service: 'Dribbble',
+    };
+  });
 };

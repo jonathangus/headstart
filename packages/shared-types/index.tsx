@@ -31,7 +31,11 @@ export type PostEntity = {
 export type UserEntity = {
   handle: string;
   imageURI: string;
-  address: string;
+  tokenId: string;
+  id: string;
+  accountAddress: string;
+  ownedBy: string;
+  profileId: string;
 };
 
 export type LensPost = {

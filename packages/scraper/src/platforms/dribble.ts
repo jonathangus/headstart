@@ -7,10 +7,8 @@ import { uploadImageToIpfs, uploadToIpfs } from '../ipfs';
 import chalk from 'chalk';
 import { getDribbleContent } from './mirror';
 
-const tmpPath = path.resolve(__dirname, '../tmp');
-
 const SERVICE = 'dribbble';
-const dryRun = true;
+const dryRun = false;
 
 export const service: Service = {
   sync: async (args) => {
@@ -50,7 +48,7 @@ export const service: Service = {
         description: `${body}`,
         content: `${body}`,
         name,
-        contentFocus: 'Image',
+        // contentFocus: 'Image',
         locale: 'en',
 
         attributes: [

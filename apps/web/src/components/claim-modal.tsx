@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -6,45 +6,45 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 
-import { Button } from "./ui/button";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { useToast } from "./ui/use-toast";
+import { Button } from './ui/button';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useAccount } from 'wagmi';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+import { useToast } from './ui/use-toast';
 
-import { DownloadIcon } from "@radix-ui/react-icons";
-import { AvatarIcon } from "@radix-ui/react-icons";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { DownloadIcon } from '@radix-ui/react-icons';
+import { AvatarIcon } from '@radix-ui/react-icons';
+import { ReloadIcon } from '@radix-ui/react-icons';
 
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-
-const tokenId = 8;
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useProfileContext } from '@/context/profile-context';
 
 export function ClaimModal() {
+  const { user, isClaimed } = useProfileContext();
   const [step, setSteps] = useState(1);
   const [loading, setLoading] = useState(false);
   const { address: account } = useAccount();
-  const claimed = false;
   const { toast } = useToast();
+
   const { mutate, isLoading } = useMutation({
     mutationFn: (args: any) => {
-      return axios.post("/api/claim", args);
+      return axios.post('/api/claim', args);
     },
     onSuccess: () => {
       toast({
-        title: "Claim successful!",
+        title: 'Claim successful!',
         description:
-          "Now you have a erc-6651 token and a 4337-account connected to it.",
+          'Now you have a erc-6651 token and a 4337-account connected to it.',
       });
     },
   });
 
-  if (claimed) {
-    return null;
+  if (isClaimed) {
+    return <div>verified ✅</div>;
   }
 
   const authIt = () => {
@@ -84,13 +84,17 @@ export function ClaimModal() {
             onClick={() => {
               mutate({
                 receiver: account,
-                tokenId,
+                tokenId: user.tokenId,
               });
             }}
             disabled={!account}
           >
             <DownloadIcon className="mr-2 h-4 w-4" />
-            Redeem account
+            {isLoading ? (
+              <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              'Redeem account'
+            )}
           </Button>
         )}
       </Dialog>
@@ -98,14 +102,10 @@ export function ClaimModal() {
   }
 
   return (
-    <Dialog
-      onOpenChange={() => {
-        setSteps(1);
-      }}
-    >
+    <Dialog>
       <DialogTrigger>
         <Button variant="outline">
-          {" "}
+          {' '}
           <AvatarIcon className="mr-2 h-4 w-4" />
           Claim handle
         </Button>
