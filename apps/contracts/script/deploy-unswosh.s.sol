@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "forge-std/Script.sol";
+import {Script} from "forge-std/Script.sol";
 
 import {UnswoshNFT} from "src/UnswoshNFT.sol";
 
