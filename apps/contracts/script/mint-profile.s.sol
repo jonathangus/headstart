@@ -16,10 +16,10 @@ contract MintProfile is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         // Deploy Implementation Contracts
-        headstartNFT = HeadstartNFT(0x7c3354AAA85ACf7774b354671261AF8d96C496B1);
+        headstartNFT = HeadstartNFT(0xa1369C9c576694C2a312C7cf48e493d3928e38ba);
 
         HeadstartNFT.PartialCreateProfileData memory data = HeadstartNFT.PartialCreateProfileData(
-            "pierre2-dribble",
+            "piloo2-dribble",
             "https://ipfs.io/ipfs/QmcfP6PSQFzxMYkCZY88VtR5TZcq58gvQg6PTpL5DvNrk2",
             0x0000000000000000000000000000000000000000,
             "0x",

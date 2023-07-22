@@ -1,0 +1,30 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: HeadstartNFT
+    network: mumbai
+    source:
+      address: "0xa1369C9c576694C2a312C7cf48e493d3928e38ba"
+      abi: HeadstartNFT
+      startBlock: 38199700
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - OwnershipTransferred
+        - Profile
+        - Transfer
+      abis:
+        - name: HeadstartNFT
+          file: ./abis/HeadstartNFT.json
+      eventHandlers:
+        - event: ProfileCreated(uint256,uint256,address,string)
+          handler: handleProfileCreated
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/headstart-nft.ts

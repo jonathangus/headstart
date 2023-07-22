@@ -19,6 +19,8 @@ contract HeadstartNFT is ERC721, Ownable {
         string followNFTURI;
     }
 
+    event ProfileCreated(uint256 tokenId, uint256 profileId, address account, string handle);
+
     ILensHub public lensHub;
     IERC6551Registry public registry;
 
@@ -35,7 +37,7 @@ contract HeadstartNFT is ERC721, Ownable {
         address _accountImplementation,
         address _profileCreationProxyAddress,
         address _lensHubAddress
-    ) ERC721("Unswosh NFT", "UNSWOSH") {
+    ) ERC721("Headstart NFT", "HEADSTART") {
         lensHub = ILensHub(_lensHubAddress);
         registry = IERC6551Registry(_erc6551Registry);
 
@@ -64,7 +66,11 @@ contract HeadstartNFT is ERC721, Ownable {
 
         string memory handle = string(abi.encodePacked(_profileData.handle, ".test"));
 
+        uint256 profileId = lensHub.getProfileIdByHandle(handle);
+
         accountsPerTokenId[tokenId] = newAccountAddress;
-        profileIdPerTokenId[tokenId] = lensHub.getProfileIdByHandle(handle);
+        profileIdPerTokenId[tokenId] = profileId;
+
+        emit ProfileCreated(tokenId, profileId, newAccountAddress, handle);
     }
 }
