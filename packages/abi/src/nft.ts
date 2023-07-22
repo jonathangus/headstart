@@ -1,4 +1,4 @@
-export const headstartPointer = '0x9a81653C6D24656E40a953E8a6aa797cF90d2e58';
+export const headstartPointer = '0xa1369C9c576694C2a312C7cf48e493d3928e38ba';
 export const nftABI = [
   {
     inputs: [
@@ -93,6 +93,37 @@ export const nftABI = [
       },
     ],
     name: 'OwnershipTransferred',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'tokenId',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'profileId',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'string',
+        name: 'handle',
+        type: 'string',
+      },
+    ],
+    name: 'ProfileCreated',
     type: 'event',
   },
   {
@@ -280,7 +311,7 @@ export const nftABI = [
             type: 'string',
           },
         ],
-        internalType: 'struct UnswoshNFT.PartialCreateProfileData',
+        internalType: 'struct HeadstartNFT.PartialCreateProfileData',
         name: '_profileData',
         type: 'tuple',
       },

@@ -9,7 +9,7 @@ import { getDribbleContent } from './mirror';
 
 const tmpPath = path.resolve(__dirname, '../tmp');
 
-const SERVICE = 'dribble';
+const SERVICE = 'dribbble';
 const dryRun = true;
 
 export const service: Service = {
@@ -26,19 +26,18 @@ export const service: Service = {
         posts: [
           {
             contentURI:
-              'https://ipfs.io/ipfs/QmSsmQc3tUG2PceNUWYPw5bv4PEWfwsoim4ChL1HGKeUmu',
+              'https://lavender-adequate-dragon-359.mypinata.cloud/ipfs/QmWFfFBZNJ35RAJKZo7qLTpuXe2xH57TRcfUAW76x7ABaL',
           },
           {
             contentURI:
-              'https://ipfs.io/ipfs/QmSsmQc3tUG2PceNUWYPw5bv4PEWfwsoim4ChL1HGKeUmu',
+              'https://lavender-adequate-dragon-359.mypinata.cloud/ipfs/QmWFfFBZNJ35RAJKZo7qLTpuXe2xH57TRcfUAW76x7ABaL',
           },
         ],
       };
     }
 
     const data = await getDribbleContent();
-
-    console.log('DAHHA::', data);
+    console.log(data);
     console.log('uploading to ipfs...');
     const postsPromises = data.nodes.map(async (post) => {
       // upload to ipfs
@@ -51,13 +50,21 @@ export const service: Service = {
         description: `${body}`,
         content: `${body}`,
         name,
+        contentFocus: 'Image',
+        locale: 'en',
+
         attributes: [
           {
             traitType: 'type',
             value: 'post',
           },
         ],
-        media: [],
+        media: [
+          {
+            url: post.src,
+            mimeType: 'image/png',
+          },
+        ],
         appId: 'eth cc',
       };
 

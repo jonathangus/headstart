@@ -62,12 +62,22 @@ export function CollectPost({ post }: Props) {
     [WMATIC, parseEther('0.001')]
   );
 
+  let publisherId = BigInt(35699);
+  let postId = BigInt(2);
+
+  if (post.publicationId) {
+    const sliced = post.publicationId.split('-');
+
+    publisherId = BigInt(Number(sliced[0]));
+    postId = BigInt(Number(sliced[1]));
+  }
+
   const [isApproving, setIsApproving] = useState(false);
   const { write, isLoading, data } = useContractWrite({
     abi: lenshubFactoryABI,
     address: lenshubFactoryAddress,
     functionName: 'collect',
-    args: [BigInt(35699), BigInt(2), feeCollectModuleInitData],
+    args: [publisherId, postId, feeCollectModuleInitData],
     onError: (e) => {
       toast({
         variant: 'destructive',
@@ -81,9 +91,6 @@ export function CollectPost({ post }: Props) {
     hash: data?.hash,
   });
 
-  console.log('from:', account);
-  console.log('TO:', lenshubFactoryAddress);
-  console.log([BigInt(35699), BigInt(2), feeCollectModuleInitData]);
   const isLoadingAnything = isLoading || isLoadingTx || isApproving;
   const collect = async () => {
     try {
