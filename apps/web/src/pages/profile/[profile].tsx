@@ -22,6 +22,7 @@ import { getPostsByUser, getProfile } from '@/utils/api';
 import { ProfileContextProvider } from '@/context/profile-context';
 import { GenerateWallet } from '@/components/generate-wallet';
 import { SafeKitContextProvider } from '@/context/safe-kit-auth-context';
+import { SafekitLogin } from '@/components/safekit-login';
 
 type Props = {
   user: UserEntity;
@@ -85,6 +86,7 @@ const Page = (props: Props) => {
             </CardContent>
           </Card>
 
+          <SafekitLogin />
           <PostsList items={posts || []} />
         </ProfileContextProvider>
       </SafeKitContextProvider>

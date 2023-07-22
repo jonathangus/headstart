@@ -66,7 +66,6 @@ export function CollectPost({ post }: Props) {
 
   if (post.publicationId) {
     const sliced = post.publicationId.split('-');
-
     publisherId = BigInt(Number(sliced[0]));
     postId = BigInt(Number(sliced[1]));
   }
