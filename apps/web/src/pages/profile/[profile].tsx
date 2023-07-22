@@ -13,26 +13,27 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { AvatarIcon } from "@radix-ui/react-icons";
 import { DownloadIcon } from "@radix-ui/react-icons";
+import { AvatarIcon } from "@radix-ui/react-icons";
+import { ClaimModal } from "@/components/claim-modal";
 
 type Props = {
   user: UserEntity;
   posts: PostEntity[];
 };
+
 const Page = (props: Props) => {
   const router = useRouter();
   if (router.isFallback) {
     return <div>loading...</div>;
   }
 
-  console.log({ props });
   const { user, posts } = props;
 
   return (
     <>
       <Card className="w-full mb-16">
-        <CardContent className="flex justify-between p-4 ">
+        <CardContent className="flex justify-between p-4 items-start">
           <div className="flex flex-row gap-4 items-center p-2">
             <Avatar>
               <AvatarImage />
@@ -44,19 +45,15 @@ const Page = (props: Props) => {
               <div className="flex flex-row gap-4">
                 <h1 className="text-2xl">{user.handle}</h1>
               </div>
-
               <h2 className="text-l">8.2 ETH earned</h2>
             </div>
           </div>
           <div className="flex flex-row gap-4">
-            <Button variant="outline">
-              <AvatarIcon className="mr-2 h-4 w-4" />
-              Claim
-            </Button>
-            <Button variant="outline">
+            <ClaimModal />
+            {/* <Button variant="outline">
               <DownloadIcon className="mr-2 h-4 w-4" />
-              Withdraw
-            </Button>
+              Withdraw earnings
+            </Button> */}
           </div>
         </CardContent>
       </Card>

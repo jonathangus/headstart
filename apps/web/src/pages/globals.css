@@ -78,3 +78,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.modddd button {
+  width: 100%;
+}

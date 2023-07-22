@@ -9,7 +9,7 @@ contract DeployHeadstart is Script {
     HeadstartNFT public headstartNFT;
 
     address public constant ERC6551_REGISTRY = 0x02101dfB77FDE026414827Fdc604ddAF224F0921;
-    address public constant ERC6551_ACCOUNT = 0x2D25602551487C3f3354dD80D76D54383A243358;
+    address public constant ERC6551_ACCOUNT = 0x1a0E97Dae78590b7E967E725a5c848eD034f5510;
 
     address public constant LENS_PROFILE_CREATION_PROXY = 0x420f0257D43145bb002E69B14FF2Eb9630Fc4736;
     address public constant LENS_HUB = 0x60Ae865ee4C725cd04353b5AAb364553f56ceF82;

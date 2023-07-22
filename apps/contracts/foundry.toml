@@ -9,6 +9,7 @@ remappings = [
     '@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/',
     '@lens-protocol/contracts/=lib/core/contracts/',
     '@erc6551/contracts/=lib/reference/src/',
+    '@tokenbound/contracts/=lib/contracts/src/',
     'forge-std/=lib/forge-std/src/'
     ]
 

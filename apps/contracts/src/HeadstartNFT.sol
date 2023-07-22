@@ -62,7 +62,9 @@ contract HeadstartNFT is ERC721, Ownable {
 
         MockProfileCreationProxy(profileCreationProxyAddress).proxyCreateProfile(fullProfileData);
 
+        string memory handle = string(abi.encodePacked(_profileData.handle, ".test"));
+
         accountsPerTokenId[tokenId] = newAccountAddress;
-        profileIdPerTokenId[tokenId] = lensHub.getProfileIdByHandle(_profileData.handle);
+        profileIdPerTokenId[tokenId] = lensHub.getProfileIdByHandle(handle);
     }
 }
