@@ -9,7 +9,12 @@ import {
 } from 'viem';
 import { polygonMumbai } from 'viem/chains';
 import { UserObject, PostObject } from 'shared-types';
-import { aaImplementationABI, lenshubFactoryABI, nftABI } from 'abi';
+import {
+  aaImplementationABI,
+  headstartPointer,
+  lenshubFactoryABI,
+  nftABI,
+} from 'abi';
 import { privateKeyToAccount } from 'viem/accounts';
 import { encodeFunctionData, parseEther } from 'viem';
 import chalk from 'chalk';
@@ -18,7 +23,7 @@ const transport = http(
   `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_KEY}`
 );
 
-const HEADSTART_ADDRESS = '0x9a81653C6D24656E40a953E8a6aa797cF90d2e58';
+const HEADSTART_ADDRESS = headstartPointer;
 
 const account = privateKeyToAccount(
   ('0x' + process.env.PRIVATE_KEY) as `0x${string}`

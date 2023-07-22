@@ -1,3 +1,4 @@
+import { ClaimModal } from '@/components/claim-modal';
 import { PostsList } from '@/components/posts-list';
 import { GetStaticPaths } from 'next';
 import { useRouter } from 'next/router';
@@ -7,19 +8,20 @@ type Props = {
   user: UserEntity;
   posts: PostEntity[];
 };
+
 const Page = (props: Props) => {
   const router = useRouter();
   if (router.isFallback) {
     return <div>loading...</div>;
   }
 
-  console.log({ props });
   const { user, posts } = props;
 
   return (
     <div>
       <div>{user.handle}</div>
       <div>3 eth earned</div>
+      <ClaimModal />
 
       <div>
         <PostsList items={posts} />
