@@ -9,7 +9,7 @@ type Props = {
 export function AllPosts({ realPosts }: Props) {
   const { data = [], isLoading } = usePostsQuery();
 
-  const items = [...realPosts, ...data];
+  const items = [...realPosts, ...data].filter((post) => post.image);
   return (
     <div>
       <PostsList items={items} />
