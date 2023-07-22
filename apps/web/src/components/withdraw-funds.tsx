@@ -48,20 +48,13 @@ export function WithdrawFunds() {
     },
   });
 
-  return (
-    <div
-      onClick={() => {
-        withdrawfunds();
-      }}
-    >
-      asdasd
-    </div>
-  );
+  return <div>{amount}</div>;
+
   if (!account) {
     return amount;
   }
 
-  if (ownerOfToken.toLowerCase() !== account.toLowerCase()) {
+  if (ownerOfToken.toLowerCase() !== account?.toLowerCase()) {
     return amount;
   }
 

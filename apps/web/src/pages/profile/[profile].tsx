@@ -10,6 +10,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ProfileContextProvider } from '@/context/profile-context';
 import { SafeKitContextProvider } from '@/context/safe-kit-auth-context';
 import { getPostsByUser, getProfile } from '@/utils/api';
+import { WithdrawFunds } from '@/components/withdraw-funds';
 
 type Props = {
   user: UserEntity;
@@ -63,6 +64,9 @@ const Page = (props: Props) => {
                   </div>
                   <div className="text-xs mb-3 text-gray-500">
                     {user.accountAddress}
+                  </div>
+                  <div>
+                    <WithdrawFunds />
                   </div>
                 </div>
               </div>

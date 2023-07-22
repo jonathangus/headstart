@@ -1,14 +1,11 @@
 import { Service } from 'shared-types';
-import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import fs from 'fs';
-import path from 'path';
 import { uploadImageToIpfs, uploadToIpfs } from '../ipfs';
-import chalk from 'chalk';
+
 import { getDribbleContent } from './mirror';
 
 const SERVICE = 'dribbble';
-const dryRun = true;
+const dryRun = false;
 
 export const service: Service = {
   sync: async (args) => {
@@ -37,6 +34,7 @@ export const service: Service = {
     const data = await getDribbleContent(args.name);
     console.log(data);
     console.log('uploading to ipfs...');
+
     const postsPromises = data.nodes.map(async (post) => {
       // upload to ipfs
       const description = `view full content on ${post.link}`;
@@ -56,11 +54,12 @@ export const service: Service = {
             altTag: '',
           },
         ],
-        appId: 'ImageUploader',
+        appId: 'eth cc',
         locale: 'en',
         mainContentFocus: 'IMAGE',
       };
 
+      console.log(data);
       const contentURI = await uploadToIpfs(data);
 
       return {

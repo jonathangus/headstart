@@ -119,7 +119,7 @@ export function ClaimModal() {
         <DialogDescription>
           {safeAuthSignInResponse
             ? 'This token bound account token will be transfered to your wallet'
-            : 'Use social login with SAFE kit to generate a wallet'}
+            : 'You are indeed the owner of this account! Use social login with SAFE kit to generate a wallet'}
         </DialogDescription>
 
         {safeAuthSignInResponse && (
