@@ -1,5 +1,6 @@
 import { ClaimModal } from '@/components/claim-modal';
 import { PostsList } from '@/components/posts-list';
+import { WithdrawFunds } from '@/components/withdraw-funds';
 import { GetStaticPaths } from 'next';
 import { useRouter } from 'next/router';
 import { PostEntity, UserEntity } from 'shared-types';
@@ -22,6 +23,7 @@ const Page = (props: Props) => {
       <div>{user.handle}</div>
       <div>3 eth earned</div>
       <ClaimModal />
+      <WithdrawFunds />
 
       <div>
         <PostsList items={posts} />

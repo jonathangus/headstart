@@ -38,11 +38,11 @@ export default async function handler(
       args: [account.address, receiver, tokenId],
     });
 
-    const transaction = await publicClient.waitForTransactionReceipt({
+    await publicClient.waitForTransactionReceipt({
       hash: hash,
     });
 
-    res.status(200).json({ transaction, hash });
+    res.status(200).json({ hash });
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: e });

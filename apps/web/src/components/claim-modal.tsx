@@ -15,7 +15,8 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useToast } from './ui/use-toast';
 
-const tokenId = 1;
+const tokenId = 8;
+
 export function ClaimModal() {
   const [step, setSteps] = useState(1);
   const [loading, setLoading] = useState(false);
