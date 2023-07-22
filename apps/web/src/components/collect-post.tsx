@@ -1,24 +1,25 @@
 import { erc20ABI, lenshubFactoryABI, lenshubFactoryAddress } from 'abi';
-import { useState } from 'react';
 import { PostEntity } from 'shared-types';
-import {
-  createPublicClient,
-  encodeAbiParameters,
-  http,
-  parseEther,
-} from 'viem';
-import { polygonMumbai } from 'viem/chains';
+import { LensClient, development } from '@lens-protocol/client';
 import {
   useAccount,
   useContractRead,
   useContractWrite,
   useWaitForTransaction,
 } from 'wagmi';
+import { useToast } from './ui/use-toast';
+import {
+  createPublicClient,
+  encodeAbiParameters,
+  http,
+  parseEther,
+} from 'viem';
 
+import { polygonMumbai } from 'viem/chains';
+import { useState } from 'react';
 import { WMATIC } from '@/constants';
 
 import { Button } from './ui/button';
-import { useToast } from './ui/use-toast';
 
 type Props = {
   post: PostEntity;
@@ -31,6 +32,10 @@ const transport = http(
 const publicClient = createPublicClient({
   chain: polygonMumbai,
   transport,
+});
+
+const lensClient = new LensClient({
+  environment: development,
 });
 
 const FEE_COLLECT_MODULE = '0xeb4f3EC9d01856Cec2413bA5338bF35CeF932D82';
@@ -89,6 +94,17 @@ export function CollectPost({ post }: Props) {
   const { isLoading: isLoadingTx } = useWaitForTransaction({
     hash: data?.hash,
   });
+
+  const totalCollected = async () => {
+    const xyz = await lensClient.publication.allWalletsWhoCollected({
+      publicationId: post.publicationId,
+    });
+    console.log('PUBLICATION : ', post.publicationId);
+    console.log('ITEMS : ', xyz.items);
+    console.log('TOTAL COLLECTED : ', xyz.items.length);
+  };
+
+  totalCollected();
 
   const isLoadingAnything = isLoading || isLoadingTx || isApproving;
   const collect = async () => {
