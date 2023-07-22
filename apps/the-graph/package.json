@@ -1,0 +1,21 @@
+{
+  "name": "ethcc-headstart",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ 0xpilou/ethcc-headstart",
+    "create-local": "graph create --node http://localhost:8020/ 0xpilou/ethcc-headstart",
+    "remove-local": "graph remove --node http://localhost:8020/ 0xpilou/ethcc-headstart",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 0xpilou/ethcc-headstart",
+    "test": "graph test"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "^0.51.2",
+    "@graphprotocol/graph-ts": "^0.31.0"
+  },
+  "devDependencies": {
+    "matchstick-as": "0.5.0"
+  }
+}
