@@ -1,0 +1,11 @@
+type Profile @entity {
+  id: String!
+  accountAddress: Bytes! # address
+  ownedBy: Bytes! # address
+  tokenId: BigInt! # uint256
+  handle: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  profileId: BigInt! # uint256
+}
