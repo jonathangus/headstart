@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 import { PostEntity, UserEntity } from "shared-types";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+
 import {
   Card,
   CardContent,
@@ -16,6 +17,7 @@ import {
 import { DownloadIcon } from "@radix-ui/react-icons";
 import { AvatarIcon } from "@radix-ui/react-icons";
 import { ClaimModal } from "@/components/claim-modal";
+import { WithdrawFunds } from "@/components/withdraw-funds";
 
 type Props = {
   user: UserEntity;
@@ -25,7 +27,27 @@ type Props = {
 const Page = (props: Props) => {
   const router = useRouter();
   if (router.isFallback) {
-    return <div>loading...</div>;
+    return (
+      <div>
+        <div className="flex items-center space-x-4 w-full mb-8">
+          <Skeleton className="h-24 w-28 rounded-full" />
+          <div className="space-y-4 w-full">
+            <Skeleton className="h-8 w-full" />
+            <Skeleton className="h-8 w-full" />
+          </div>
+        </div>
+        <div className="flex space-x-8 w-full  mb-8">
+          <Skeleton className="h-64 w-64" />
+          <Skeleton className="h-64 w-64" />
+          <Skeleton className="h-64 w-64" />
+        </div>
+        <div className="flex space-x-8 w-full mb-8">
+          <Skeleton className="h-64 w-64" />
+          <Skeleton className="h-64 w-64" />
+          <Skeleton className="h-64 w-64" />
+        </div>
+      </div>
+    );
   }
 
   const { user, posts } = props;
@@ -45,7 +67,7 @@ const Page = (props: Props) => {
               <div className="flex flex-row gap-4">
                 <h1 className="text-2xl">{user.handle}</h1>
               </div>
-              <h2 className="text-l">8.2 ETH earned</h2>
+              <WithdrawFunds />
             </div>
           </div>
           <div className="flex flex-row gap-4">
