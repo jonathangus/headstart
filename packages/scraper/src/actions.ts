@@ -14,6 +14,7 @@ import {
   aaImplementationABI,
   headstartPointer,
   lenshubFactoryABI,
+  lenshubFactoryAddress,
   nftABI,
 } from 'abi';
 import { privateKeyToAccount } from 'viem/accounts';
@@ -131,8 +132,6 @@ export const createPosts = async (
       '0x0000000000000000000000000000000000000000' as `0x${string}`,
     referenceModuleInitData: '0x' as `0x${string}`,
   }));
-
-  const lenshubFactoryAddress = '0x60Ae865ee4C725cd04353b5AAb364553f56ceF82';
 
   console.log('waiting for creating posts on lens');
 

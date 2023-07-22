@@ -1,3 +1,5 @@
+export const lenshubFactoryAddress =
+  '0x60Ae865ee4C725cd04353b5AAb364553f56ceF82';
 export const lenshubFactoryABI = [
   {
     inputs: [

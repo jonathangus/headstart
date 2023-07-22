@@ -9,7 +9,11 @@ import {
 } from '@tanstack/react-query';
 import '@rainbow-me/rainbowkit/styles.css';
 
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import {
+  ConnectButton,
+  getDefaultWallets,
+  RainbowKitProvider,
+} from '@rainbow-me/rainbowkit';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import {
   mainnet,
@@ -22,6 +26,7 @@ import {
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 import { Toaster } from '@/components/ui/toaster';
+import { LensContextProvider } from '@/context/lens-context';
 
 const queryClient = new QueryClient();
 
@@ -29,13 +34,13 @@ const { chains, publicClient } = configureChains(
   [polygonMumbai],
   [
     alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID as string }),
-    publicProvider(),
+    // publicProvider(),
   ]
 );
 
 const { connectors } = getDefaultWallets({
   appName: 'hack ethcc',
-  projectId: 'YOUR_PROJECT_ID',
+  projectId: '.....' as any,
   chains,
 });
 
@@ -50,8 +55,15 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <WagmiConfig config={wagmiConfig}>
         <RainbowKitProvider chains={chains}>
-          <Component {...pageProps} />
-          <Toaster />
+          <LensContextProvider>
+            <>
+              <header>
+                <ConnectButton />
+              </header>
+              <Component {...pageProps} />
+              <Toaster />
+            </>
+          </LensContextProvider>
         </RainbowKitProvider>
       </WagmiConfig>
     </QueryClientProvider>

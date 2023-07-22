@@ -19,6 +19,7 @@ export type Service = {
 };
 
 export type PostEntity = {
+  publicationId: any;
   image: string;
   title: string;
   handle: string;

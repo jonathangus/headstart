@@ -8,6 +8,7 @@ import image6 from './image6.png';
 
 export const mockedItems: PostEntity[] = [
   {
+    publicationId: 35697,
     image: image1.src,
     title: 'Lenstagram brand identity',
     handle: 'heavydevbehance.lens',

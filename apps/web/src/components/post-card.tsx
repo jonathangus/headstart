@@ -1,4 +1,4 @@
-import { PostEntity } from "shared-types";
+import { PostEntity } from 'shared-types';
 import {
   Card,
   CardContent,
@@ -6,11 +6,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
+} from '../components/ui/card';
 
-import { Button } from "@/components/ui/button";
-import { HeartIcon } from "@radix-ui/react-icons";
-import { MagicWandIcon } from "@radix-ui/react-icons";
+import { Button } from '@/components/ui/button';
+import { HeartIcon } from '@radix-ui/react-icons';
+import { MagicWandIcon } from '@radix-ui/react-icons';
+import { CollectPost } from './collect-post';
 
 type Props = {
   post: PostEntity;
@@ -32,28 +33,10 @@ export function PostCard({ post }: Props) {
           <HeartIcon className="mr-2 h-4 w-4" /> like
         </Button>
         <Button variant="ghost" className="p-2">
-          <MagicWandIcon className="mr-2 h-4 w-4" /> tip
+          {/* <MagicWandIcon className="mr-2 h-4 w-4" /> tip */}
         </Button>
+        <CollectPost post={post} />
       </CardFooter>
     </Card>
   );
 }
-
-/*
-<Card className="w-[350px] overflow-hidden">
-        <CardHeader className="p-0">
-          <img src={post.image} />
-        </CardHeader>
-        <CardContent className="pt-6">
-          <CardDescription className="pb-2">{post.handle}</CardDescription>
-          <CardTitle>{post.title}</CardTitle>
-        </CardContent>
-        <CardFooter>
-          {/*           <CommandItem>
-            <RocketIcon className="mr-2 h-4 w-4" />
-            <span>Launch</span>
-          </CommandItem> }
-          </CardFooter>
-          </Card>
-
-          */
