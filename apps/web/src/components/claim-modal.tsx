@@ -64,12 +64,14 @@ export function ClaimModal() {
           Proceed by authenticating your account to prove you are the owner of
           this content & profile.
         </DialogDescription>
-        {((loading || isLoading) && (
+        {loading || isLoading ? (
           <Button disabled>
             <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
             Authenticating...
           </Button>
-        )) || <Button onClick={authIt}>Authenticate</Button>}
+        ) : (
+          <Button onClick={() => authIt()}>Authenticate</Button>
+        )}
       </Dialog>
     );
   } else if (step === 2) {
@@ -77,9 +79,16 @@ export function ClaimModal() {
       <Dialog>
         <DialogTitle>Transfer ownership</DialogTitle>
         <DialogDescription>
-          Connect your wallet to receive your EIP-6551 tokenbound account.
+          This token bound account token will be transfered to your wallet
         </DialogDescription>
-        {(!account && <ConnectButton />) || (
+
+        {!account && (
+          <div>
+            <ConnectButton />
+          </div>
+        )}
+
+        {account && (
           <Button
             onClick={() => {
               mutate({
