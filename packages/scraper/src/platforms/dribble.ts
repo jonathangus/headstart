@@ -8,7 +8,7 @@ import chalk from 'chalk';
 import { getDribbleContent } from './mirror';
 
 const SERVICE = 'dribbble';
-const dryRun = false;
+const dryRun = true;
 
 export const service: Service = {
   sync: async (args) => {
