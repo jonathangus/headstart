@@ -1,6 +1,6 @@
 module.exports = {
   reactStrictMode: false,
-  transpilePackages: ['ui', 'shared-types'],
+  transpilePackages: ['ui', 'abi', 'shared-types'],
 
   typescript: {
     // !! WARN !!
