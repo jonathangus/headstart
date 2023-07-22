@@ -17,12 +17,14 @@ import { CollectPost } from './collect-post';
 type Props = {
   post: PostEntity;
 };
-export function PostCard({ post }: Props) {
+export function PostCard({ post, height }: Props) {
   return (
-    <Link href={`/profile/${post.handle}`}>
-      <Card className="w-full overflow-hidden">
-        <CardHeader className="p-0 max-h-[225px] justify-center overflow-hidden bg-neutral-100">
-          <img src={post.image} />
+    <Card className="w-full overflow-hidden mb-4">
+      <Link href={`/profile/${post.handle}`}>
+        <CardHeader
+          className={`p-0 ${height} justify-center overflow-hidden bg-neutral-100`}
+        >
+          <img className="h-full object-cover object-center" src={post.image} />
         </CardHeader>
         <CardContent className="p-6 pb-0">
           <CardDescription className="pb-2 text-neutral-400">
@@ -30,16 +32,10 @@ export function PostCard({ post }: Props) {
           </CardDescription>
           <CardTitle>{post.title}</CardTitle>
         </CardContent>
-        <CardFooter className="gap-0 p-4 text-neutral-400">
-          <Button variant="ghost" className="p-2">
-            <HeartIcon className="mr-2 h-4 w-4" /> like
-          </Button>
-          <Button variant="ghost" className="p-2">
-            {/* <MagicWandIcon className="mr-2 h-4 w-4" /> tip */}
-          </Button>
-          <CollectPost post={post} />
-        </CardFooter>
-      </Card>
-    </Link>
+      </Link>
+      <CardFooter className="gap-0 p-4 text-neutral-400">
+        <CollectPost post={post} />
+      </CardFooter>
+    </Card>
   );
 }

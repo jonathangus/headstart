@@ -20,6 +20,8 @@ import { useState } from 'react';
 import { WMATIC } from '@/constants';
 
 import { Button } from './ui/button';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { HeartIcon, ReloadIcon } from '@radix-ui/react-icons';
 
 type Props = {
   post: PostEntity;
@@ -82,6 +84,28 @@ export function CollectPost({ post }: Props) {
     address: lenshubFactoryAddress,
     functionName: 'collect',
     args: [publisherId, postId, feeCollectModuleInitData],
+    onSuccess: async () => {
+      // Cancel any outgoing refetches
+      // (so they don't overwrite our optimistic update)
+      await queryClient.cancelQueries({
+        queryKey: ['collected', post.publicationId],
+      });
+
+      // Snapshot the previous value
+      const previousTodos = queryClient.getQueryData([
+        'collected',
+        post.publicationId,
+      ]);
+
+      // Optimistically update to the new value
+      queryClient.setQueryData(
+        ['collected', post.publicationId],
+        (old: number) => old + 1
+      );
+
+      // Return a context object with the snapshotted value
+      return { previousTodos };
+    },
     onError: (e) => {
       toast({
         variant: 'destructive',
@@ -95,16 +119,23 @@ export function CollectPost({ post }: Props) {
     hash: data?.hash,
   });
 
-  const totalCollected = async () => {
-    const xyz = await lensClient.publication.allWalletsWhoCollected({
-      publicationId: post.publicationId,
-    });
-    console.log('PUBLICATION : ', post.publicationId);
-    console.log('ITEMS : ', xyz.items);
-    console.log('TOTAL COLLECTED : ', xyz.items.length);
-  };
+  const { data: collectedCount } = useQuery(
+    ['collected', post.publicationId],
+    async () => {
+      const xyz = await lensClient.publication.allWalletsWhoCollected({
+        publicationId: post.publicationId,
+      });
 
-  totalCollected();
+      return xyz.items.length;
+    },
+    {
+      enabled: Boolean(post.publicationId),
+      refetchOnWindowFocus: true,
+      staleTime: Infinity,
+    }
+  );
+
+  const queryClient = useQueryClient();
 
   const isLoadingAnything = isLoading || isLoadingTx || isApproving;
   const collect = async () => {
@@ -129,11 +160,22 @@ export function CollectPost({ post }: Props) {
     }
   };
 
+  const disabled = isLoadingAnything || !account;
   return (
-    <div>
-      <Button disabled={isLoadingAnything} onClick={() => collect()}>
-        collect post
-      </Button>
-    </div>
+    <Button
+      variant="ghost"
+      className="p-2"
+      onClick={(e) => {
+        e.stopPropagation();
+        collect();
+      }}
+    >
+      {isLoading ? (
+        <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+      ) : (
+        <HeartIcon className="mr-2 h-4 w-4" />
+      )}{' '}
+      like ({collectedCount || 0})
+    </Button>
   );
 }

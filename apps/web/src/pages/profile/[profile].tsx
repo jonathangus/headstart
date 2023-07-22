@@ -5,10 +5,7 @@ import { PostEntity, UserEntity } from 'shared-types';
 import { ClaimModal } from '@/components/claim-modal';
 import { PostsList } from '@/components/posts-list';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import {
-  Card,
-  CardContent,
-} from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ProfileContextProvider } from '@/context/profile-context';
 import { SafeKitContextProvider } from '@/context/safe-kit-auth-context';
@@ -75,7 +72,7 @@ const Page = (props: Props) => {
             </CardContent>
           </Card>
 
-          <PostsList items={posts || []} />
+          <PostsList sameHeight items={posts || []} />
         </ProfileContextProvider>
       </SafeKitContextProvider>
     </>
