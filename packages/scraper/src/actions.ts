@@ -6,6 +6,7 @@ import {
   http,
   parseAbi,
   decodeEventLog,
+  encodeAbiParameters,
 } from 'viem';
 import { polygonMumbai } from 'viem/chains';
 import { UserObject, PostObject } from 'shared-types';
