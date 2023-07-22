@@ -135,6 +135,25 @@ export const nftABI = [
   {
     inputs: [
       {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    name: 'accountsPerTokenId',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'address',
         name: 'to',
         type: 'address',
@@ -260,7 +279,7 @@ export const nftABI = [
             type: 'string',
           },
         ],
-        internalType: 'struct PartialCreateProfileData',
+        internalType: 'struct UnswoshNFT.PartialCreateProfileData',
         name: '_profileData',
         type: 'tuple',
       },
@@ -323,6 +342,25 @@ export const nftABI = [
         internalType: 'address',
         name: '',
         type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    name: 'profileIdPerTokenId',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
     stateMutability: 'view',

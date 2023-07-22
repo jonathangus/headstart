@@ -1,6 +1,12 @@
 import 'dotenv/config';
 
-import { createWalletClient, createPublicClient, http, parseAbi } from 'viem';
+import {
+  createWalletClient,
+  createPublicClient,
+  http,
+  parseAbi,
+  decodeEventLog,
+} from 'viem';
 import { polygonMumbai } from 'viem/chains';
 import { UserObject, PostObject } from 'shared-types';
 import { aaImplementationABI, lenshubFactoryABI, nftABI } from 'abi';
@@ -11,6 +17,8 @@ import chalk from 'chalk';
 const transport = http(
   `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_KEY}`
 );
+
+const HEADSTART_ADDRESS = '0x3e85C2aEC80C2B84FF05e08FBD827C4fCaC9FD6c';
 
 const account = privateKeyToAccount(
   ('0x' + process.env.PRIVATE_KEY) as `0x${string}`
@@ -27,9 +35,15 @@ const publicClient = createPublicClient({
   transport,
 });
 
-export const createUser = async (user: UserObject): Promise<void> => {
+type Context = {
+  accountsPerTokenId: `0x${string}`;
+  profileIdPerTokenId: bigint;
+};
+
+export const createUser = async (user: UserObject): Promise<Context> => {
+  console.log('MINTING NFT TO ', account.address);
   const res = await client.writeContract({
-    address: '0xaa8AE1a611EbD69A1Ab17C3447d920034227a692',
+    address: HEADSTART_ADDRESS,
     abi: nftABI,
     functionName: 'mintProfile',
     args: [
@@ -49,14 +63,50 @@ export const createUser = async (user: UserObject): Promise<void> => {
   const transaction = await publicClient.waitForTransactionReceipt({
     hash: res,
   });
+
+  const tokenid = BigInt(transaction.logs[0].topics[3] as string);
+  console.log(tokenid);
+
+  const [accountsPerTokenId, profileIdPerTokenId] = await Promise.all([
+    publicClient.readContract({
+      address: HEADSTART_ADDRESS,
+      abi: nftABI,
+      functionName: 'accountsPerTokenId',
+      args: [tokenid as bigint],
+    }),
+    publicClient.readContract({
+      address: HEADSTART_ADDRESS,
+      abi: nftABI,
+      functionName: 'profileIdPerTokenId',
+      args: [tokenid as bigint],
+    }),
+  ]);
+
+  console.log(`minted token with id ${chalk.green(tokenid)}`);
+  console.log(
+    `created new token bound account ${chalk.green(accountsPerTokenId)}`
+  );
+  console.log(`
+    lens handle created at ${chalk.green(
+      user.handle + '.test.lens'
+    )} and profile id ${chalk.green(profileIdPerTokenId)}
+  `);
+
+  return {
+    accountsPerTokenId,
+    profileIdPerTokenId,
+  };
 };
 
-export const createPosts = async (posts: PostObject[]): Promise<void> => {
+export const createPosts = async (
+  posts: PostObject[],
+  ctx: Context
+): Promise<void> => {
   // TODO
   const freeCollectModule = '0x0BE6bD7092ee83D44a6eC1D949626FeE48caB30c';
 
   const postsData = posts.map((post) => ({
-    profileId: BigInt(35655),
+    profileId: ctx.profileIdPerTokenId,
     contentURI: post.contentURI,
     collectModule: freeCollectModule as `0x${string}`,
     collectModuleInitData:
@@ -79,7 +129,7 @@ export const createPosts = async (posts: PostObject[]): Promise<void> => {
   const lenshubFactoryAddress = '0x60Ae865ee4C725cd04353b5AAb364553f56ceF82';
 
   const res = await client.writeContract({
-    address: '0x59D41A756A4Cc3026542F63A1B50668e710A428e',
+    address: ctx.accountsPerTokenId,
     abi: aaImplementationABI,
     functionName: 'executeCall',
     args: [lenshubFactoryAddress, BigInt(0), data],

@@ -24,3 +24,9 @@ export type PostEntity = {
   mocked: boolean;
   service: string;
 };
+
+export type UserEntity = {
+  handle: string;
+  imageURI: string;
+  address: string;
+};
