@@ -6,6 +6,7 @@ import {
   http,
   parseAbi,
   decodeEventLog,
+  encodeAbiParameters,
 } from 'viem';
 import { polygonMumbai } from 'viem/chains';
 import { UserObject, PostObject } from 'shared-types';
@@ -107,15 +108,25 @@ export const createPosts = async (
   posts: PostObject[],
   ctx: Context
 ): Promise<void> => {
-  // TODO
-  const freeCollectModule = '0x0BE6bD7092ee83D44a6eC1D949626FeE48caB30c';
+  const feeCollectModule = '0xeb4f3EC9d01856Cec2413bA5338bF35CeF932D82';
+  const mumbaiWMATIC = '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889';
+
+  const feeCollectModuleInitData = encodeAbiParameters(
+    [
+      { name: 'amount', type: 'uint256' },
+      { name: 'currency', type: 'address' },
+      { name: 'recipient', type: 'address' },
+      { name: 'referralFee', type: 'uint16' },
+      { name: 'followerOnly', type: 'bool' },
+    ],
+    [parseEther('0.001'), mumbaiWMATIC, ctx.accountsPerTokenId, 0, false]
+  );
 
   const postsData = posts.map((post) => ({
     profileId: ctx.profileIdPerTokenId,
     contentURI: post.contentURI,
-    collectModule: freeCollectModule as `0x${string}`,
-    collectModuleInitData:
-      '0x0000000000000000000000000000000000000000000000000000000000000000' as `0x${string}`,
+    collectModule: feeCollectModule as `0x${string}`,
+    collectModuleInitData: feeCollectModuleInitData as `0x${string}`,
     referenceModule:
       '0x0000000000000000000000000000000000000000' as `0x${string}`,
     referenceModuleInitData: '0x' as `0x${string}`,
