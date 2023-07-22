@@ -10,7 +10,7 @@ import { getDribbleContent } from './mirror';
 const tmpPath = path.resolve(__dirname, '../tmp');
 
 const SERVICE = 'dribble';
-const dryRun = false;
+const dryRun = true;
 
 export const service: Service = {
   sync: async (args) => {
