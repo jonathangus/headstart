@@ -6,6 +6,6 @@ import {IERC6551Registry} from "@erc6551/contracts/interfaces/IERC6551Registry.s
 import {ILensHub} from "@lens-protocol/contracts/interfaces/ILensHub.sol";
 import {DataTypes} from "@lens-protocol/contracts/libraries/DataTypes.sol";
 
-import {Account} from "";
+// import {Account} from "";
 
-contract UnswoshAccount is Account {}
+contract HeadstartAccount {}
