@@ -1,3 +1,8 @@
+## Docs
+
+https://docs.lens.xyz/docs/deployed-contract-addresses
+https://docs.tokenbound.org/contracts/deployments
+
 ## Deployment
 
 simulate deployment :
