@@ -3,10 +3,10 @@ pragma solidity ^0.8.0;
 
 import {Script} from "forge-std/Script.sol";
 
-import {UnswoshNFT} from "src/UnswoshNFT.sol";
+import {HeadstartNFT} from "src/HeadstartNFT.sol";
 
-contract DeployUnswosh is Script {
-    UnswoshNFT public unswoshNFT;
+contract DeployHeadstart is Script {
+    HeadstartNFT public headstartNFT;
 
     address public constant ERC6551_REGISTRY = 0x02101dfB77FDE026414827Fdc604ddAF224F0921;
     address public constant ERC6551_ACCOUNT = 0x2D25602551487C3f3354dD80D76D54383A243358;
@@ -22,7 +22,7 @@ contract DeployUnswosh is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         // Deploy Implementation Contracts
-        unswoshNFT = new UnswoshNFT(
+        headstartNFT = new HeadstartNFT(
             ERC6551_REGISTRY,
             ERC6551_ACCOUNT,
             LENS_PROFILE_CREATION_PROXY,

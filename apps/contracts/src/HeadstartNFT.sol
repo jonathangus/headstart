@@ -10,7 +10,7 @@ import {ILensHub} from "@lens-protocol/contracts/interfaces/ILensHub.sol";
 import {DataTypes} from "@lens-protocol/contracts/libraries/DataTypes.sol";
 import {MockProfileCreationProxy} from "@lens-protocol/contracts/mocks/MockProfileCreationProxy.sol";
 
-contract UnswoshNFT is ERC721, Ownable {
+contract HeadstartNFT is ERC721, Ownable {
     struct PartialCreateProfileData {
         string handle;
         string imageURI;
@@ -43,29 +43,26 @@ contract UnswoshNFT is ERC721, Ownable {
         profileCreationProxyAddress = _profileCreationProxyAddress;
     }
 
-    function mintProfile(
-        address _to,
-        PartialCreateProfileData calldata _profileData
-    ) public {
+    function mintProfile(address _to, PartialCreateProfileData calldata _profileData) public {
         uint256 tokenId = tokenCount;
         _safeMint(_to, tokenId);
         tokenCount++;
 
-        address newAccountAddress = registry.createAccount(
-            accountImplementation,
-            block.chainid,
-            address(this),
-            tokenId,
-            0,
-            ""
+        address newAccountAddress =
+            registry.createAccount(accountImplementation, block.chainid, address(this), tokenId, 0, "");
+
+        DataTypes.CreateProfileData memory fullProfileData = DataTypes.CreateProfileData(
+            newAccountAddress,
+            _profileData.handle,
+            _profileData.imageURI,
+            _profileData.followModule,
+            _profileData.followModuleInitData,
+            _profileData.followNFTURI
         );
 
-        MockProfileCreationProxy(profileCreationProxyAddress)
-            .proxyCreateProfile(fullProfileData);
+        MockProfileCreationProxy(profileCreationProxyAddress).proxyCreateProfile(fullProfileData);
 
         accountsPerTokenId[tokenId] = newAccountAddress;
-        profileIdPerTokenId[tokenId] = lensHub.getProfileIdByHandle(
-            _profileData.handle
-        );
+        profileIdPerTokenId[tokenId] = lensHub.getProfileIdByHandle(_profileData.handle);
     }
 }
