@@ -13,11 +13,6 @@ const main = async () => {
       name: 'name',
       message: 'Name?',
     },
-    // {
-    //   type: 'input',
-    //   name: 'username',
-    //   message: 'What is your username?',
-    // },
   ]);
 
   const { platform } = {
@@ -32,8 +27,7 @@ const main = async () => {
       ` on platform ${chalk.red(platform)}...`
   );
 
-  const user = await service.getUser({ name });
-  const posts = await service.getPosts({});
+  const { user, posts } = await service.sync({ name });
 
   let API_ENDPOINT = 'https://ethcc-web.vercel.app/api/convert';
   API_ENDPOINT = 'http://localhost:3000/api/convert';
@@ -42,7 +36,7 @@ const main = async () => {
   const ctx = await createUser(user);
   console.log(`creating user ${chalk.green('done')}`);
 
-  console.log(`creating posts onchain`);
+  console.log(`creating ${posts.length} posts onchain`);
   await createPosts(posts, ctx);
   console.log(`creating posts ${chalk.green('done')}`);
 
