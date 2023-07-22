@@ -35,7 +35,6 @@ const publicClient = createPublicClient({
 const FEE_COLLECT_MODULE = '0xeb4f3EC9d01856Cec2413bA5338bF35CeF932D82';
 
 export function CollectPost({ post }: Props) {
-  const { profileId } = useLensContext();
   const { toast } = useToast();
   const { address: account } = useAccount();
 

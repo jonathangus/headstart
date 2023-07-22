@@ -22,6 +22,8 @@ import { ReloadIcon } from '@radix-ui/react-icons';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useProfileContext } from '@/context/profile-context';
+import { useSafeKitContext } from '@/context/safe-kit-auth-context';
+import { GenerateWallet } from './generate-wallet';
 
 export function ClaimModal() {
   const { user, isClaimed } = useProfileContext();
@@ -29,8 +31,9 @@ export function ClaimModal() {
   const [loading, setLoading] = useState(false);
   const { address: account } = useAccount();
   const { toast } = useToast();
+  const { login, isLoggingIn, safeAuthSignInResponse } = useSafeKitContext();
 
-  const { mutate, isLoading } = useMutation({
+  const { isSuccess, mutate, isLoading } = useMutation({
     mutationFn: (args: any) => {
       return axios.post('/api/claim', args);
     },
@@ -39,6 +42,13 @@ export function ClaimModal() {
         title: 'Claim successful!',
         description:
           'Now you have a erc-6651 token and a 4337-account connected to it.',
+      });
+    },
+    onError: (e: any) => {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: e.message,
       });
     },
   });
@@ -56,89 +66,122 @@ export function ClaimModal() {
   };
 
   let node = null;
+  let open = isLoading || isLoggingIn ? true : undefined;
+
+  if (isSuccess) {
+    open = false;
+  }
+
   if (step === 1) {
     node = (
-      <Dialog>
+      <>
         <DialogTitle>Claim your profile</DialogTitle>
         <DialogDescription>
           Proceed by authenticating your account to prove you are the owner of
           this content & profile.
         </DialogDescription>
-        {((loading || isLoading) && (
+
+        <div className="grid gap-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-left">
+              Name
+            </Label>
+            <Input
+              disabled
+              id="name"
+              value="Pedro Duarte"
+              className="col-span-3"
+            />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="username" className="text-left">
+              Username
+            </Label>
+            <Input
+              disabled
+              id="username"
+              value="************"
+              className="col-span-3"
+            />
+          </div>
+        </div>
+
+        {loading || isLoading ? (
           <Button disabled>
             <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
             Authenticating...
           </Button>
-        )) || <Button onClick={authIt}>Authenticate</Button>}
-      </Dialog>
+        ) : (
+          <Button onClick={() => authIt()}>Authenticate</Button>
+        )}
+      </>
     );
   } else if (step === 2) {
     node = (
-      <Dialog>
+      <>
         <DialogTitle>Transfer ownership</DialogTitle>
         <DialogDescription>
-          Connect your wallet to receive your EIP-6551 tokenbound account.
+          {safeAuthSignInResponse
+            ? 'This token bound account token will be transfered to your wallet'
+            : 'Use social login with SAFE kit to generate a wallet'}
         </DialogDescription>
-        {(!account && <ConnectButton />) || (
-          <Button
-            onClick={() => {
-              mutate({
-                receiver: account,
-                tokenId: user.tokenId,
-              });
-            }}
-            disabled={!account}
-          >
-            <DownloadIcon className="mr-2 h-4 w-4" />
-            {isLoading ? (
-              <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              'Redeem account'
-            )}
-          </Button>
+
+        {safeAuthSignInResponse && (
+          <div>
+            <div>
+              <div className="mb-4 text-xs text-gray-500">
+                your new wallet address: <div>{safeAuthSignInResponse.eoa}</div>
+              </div>
+              <div className="w-full">
+                <Button
+                  onClick={() => {
+                    mutate({
+                      receiver: account,
+                      tokenId: user.tokenId,
+                    });
+                  }}
+                  className="w-full"
+                >
+                  {isLoading ? (
+                    <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <>
+                      <DownloadIcon className="mr-2 h-4 w-4" /> Redeem token
+                      bound account
+                    </>
+                  )}
+                </Button>
+              </div>
+            </div>
+          </div>
         )}
-      </Dialog>
+        {!safeAuthSignInResponse && (
+          <div>
+            <Button
+              onClick={() => {
+                login();
+              }}
+            >
+              {isLoggingIn ? (
+                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                'Create wallet'
+              )}
+            </Button>
+          </div>
+        )}
+      </>
     );
   }
-
   return (
-    <Dialog>
+    <Dialog open={open}>
       <DialogTrigger>
         <Button variant="outline">
-          {' '}
           <AvatarIcon className="mr-2 h-4 w-4" />
           Claim handle
         </Button>
       </DialogTrigger>
-      <DialogContent>
-        {node}
-        {(loading || isLoading) && (
-          <div className="grid gap-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-left">
-                Name
-              </Label>
-              <Input
-                disabled
-                id="name"
-                value="Pedro Duarte"
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-left">
-                Username
-              </Label>
-              <Input
-                disabled
-                id="username"
-                value="************"
-                className="col-span-3"
-              />
-            </div>
-          </div>
-        )}
-      </DialogContent>
+      <DialogContent>{node}</DialogContent>
     </Dialog>
   );
 }

@@ -1,21 +1,22 @@
-import "./globals.css";
-import type { AppProps } from "next/app";
+import './globals.css';
+import type { AppProps } from 'next/app';
 import {
   useQuery,
   useMutation,
   useQueryClient,
   QueryClient,
   QueryClientProvider,
-} from "@tanstack/react-query";
-import "@rainbow-me/rainbowkit/styles.css";
-import { Inter } from "next/font/google";
+} from '@tanstack/react-query';
+import '@rainbow-me/rainbowkit/styles.css';
+import { Inter } from 'next/font/google';
+import { SafeThemeProvider } from '@safe-global/safe-react-components';
 
 import {
   ConnectButton,
   getDefaultWallets,
   RainbowKitProvider,
-} from "@rainbow-me/rainbowkit";
-import { configureChains, createConfig, WagmiConfig } from "wagmi";
+} from '@rainbow-me/rainbowkit';
+import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import {
   mainnet,
   polygon,
@@ -23,14 +24,14 @@ import {
   arbitrum,
   zora,
   polygonMumbai,
-} from "wagmi/chains";
-import { alchemyProvider } from "wagmi/providers/alchemy";
-import { publicProvider } from "wagmi/providers/public";
-import { Toaster } from "@/components/ui/toaster";
-import { LensContextProvider } from "@/context/lens-context";
+} from 'wagmi/chains';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { publicProvider } from 'wagmi/providers/public';
+import { Toaster } from '@/components/ui/toaster';
+import { LensContextProvider } from '@/context/lens-context';
 
 const queryClient = new QueryClient();
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 const { chains, publicClient } = configureChains(
   [polygonMumbai],
@@ -41,8 +42,8 @@ const { chains, publicClient } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "hack ethcc",
-  projectId: "....." as any,
+  appName: 'hack ethcc',
+  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_ID as string,
   chains,
 });
 
