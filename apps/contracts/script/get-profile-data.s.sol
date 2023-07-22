@@ -17,9 +17,9 @@ contract GetProfileData is Script {
         vm.startBroadcast(deployerPrivateKey);
 
         // Deploy Implementation Contracts
-        headstartNFT = HeadstartNFT(0x3e85C2aEC80C2B84FF05e08FBD827C4fCaC9FD6c);
+        headstartNFT = HeadstartNFT(0x7c3354AAA85ACf7774b354671261AF8d96C496B1);
 
-        console.log("UnswoshNFT address : %s", headstartNFT.accountsPerTokenId(0));
+        console.log("HeadstartNFT address : %s", headstartNFT.accountsPerTokenId(0));
         console.log("Owner address: %s", headstartNFT.ownerOf(0));
         console.log("ProfileId : %s", headstartNFT.profileIdPerTokenId(0));
 
