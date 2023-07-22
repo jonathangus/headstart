@@ -18,7 +18,7 @@ const transport = http(
   `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_KEY}`
 );
 
-const HEADSTART_ADDRESS = '0x3e85C2aEC80C2B84FF05e08FBD827C4fCaC9FD6c';
+const HEADSTART_ADDRESS = '0x9a81653C6D24656E40a953E8a6aa797cF90d2e58';
 
 const account = privateKeyToAccount(
   ('0x' + process.env.PRIVATE_KEY) as `0x${string}`
@@ -125,7 +125,7 @@ export const createPosts = async (
   });
 
   console.log('creating posts..');
-  console.log(postDataUno);
+
   const lenshubFactoryAddress = '0x60Ae865ee4C725cd04353b5AAb364553f56ceF82';
 
   const res = await client.writeContract({
