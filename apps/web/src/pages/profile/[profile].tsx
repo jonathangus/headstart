@@ -1,7 +1,20 @@
-import { PostsList } from '@/components/posts-list';
-import { GetStaticPaths } from 'next';
-import { useRouter } from 'next/router';
-import { PostEntity, UserEntity } from 'shared-types';
+import { PostsList } from "@/components/posts-list";
+import { GetStaticPaths } from "next";
+import { useRouter } from "next/router";
+import { PostEntity, UserEntity } from "shared-types";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { AvatarIcon } from "@radix-ui/react-icons";
+import { DownloadIcon } from "@radix-ui/react-icons";
 
 type Props = {
   user: UserEntity;
@@ -17,41 +30,75 @@ const Page = (props: Props) => {
   const { user, posts } = props;
 
   return (
-    <div>
-      <div>{user.handle}</div>
-      <div>3 eth earned</div>
+    <>
+      <Card className="w-full mb-16">
+        <CardContent className="flex justify-between p-4 ">
+          <div className="flex flex-row gap-4 items-center p-2">
+            <Avatar>
+              <AvatarImage />
+              <AvatarFallback>
+                {user.handle.slice(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            <div className="gap-2">
+              <div className="flex flex-row gap-4">
+                <h1 className="text-2xl">{user.handle}</h1>
+              </div>
 
-      <div>
-        <PostsList items={posts} />
-      </div>
-    </div>
+              <h2 className="text-l">8.2 ETH earned</h2>
+            </div>
+          </div>
+          <div className="flex flex-row gap-4">
+            <Button variant="outline">
+              <AvatarIcon className="mr-2 h-4 w-4" />
+              Claim
+            </Button>
+            <Button variant="outline">
+              <DownloadIcon className="mr-2 h-4 w-4" />
+              Withdraw
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <PostsList items={posts || []} />
+    </>
   );
 };
 
 export const getStaticProps = async () => {
   const user: UserEntity = {
-    address: '0x7c66a8d8249D5544BeD506fEc44aE6643e6fF196',
-    handle: 'asdioio_dribble.test.lens',
-    imageURI: '',
+    address: "0x7c66a8d8249D5544BeD506fEc44aE6643e6fF196",
+    handle: "asdioio_dribble.test.lens",
+    imageURI: "",
   };
   const posts: PostEntity[] = [
     {
-      image: 'https://cdn.anotherblock.io/logo.png',
+      image: "https://cdn.anotherblock.io/logo.png",
       title:
-        'brand identity lorem brand identity lorem brand identity lorem brand identity',
-      handle: 'mock_dribble.test.lens',
+        "brand identity lorem brand identity lorem brand identity lorem brand identity",
+      handle: "mock_dribble.test.lens",
       mocked: true,
-      postId: 'asd',
-      service: 'dribbble',
+      postId: "asd",
+      service: "dribbble",
     },
     {
-      image: 'https://cdn.anotherblock.io/logo.png',
+      image: "https://cdn.anotherblock.io/logo.png",
       title:
-        'brand identity lorem brand identity lorem brand identity lorem brand identity',
-      handle: 'mock_dribble.test.lens',
+        "brand identity lorem brand identity lorem brand identity lorem brand identity",
+      handle: "mock_dribble.test.lens",
       mocked: true,
-      postId: 'asd',
-      service: 'dribbble',
+      postId: "asd",
+      service: "dribbble",
+    },
+    {
+      image: "https://cdn.anotherblock.io/logo.png",
+      title:
+        "brand identity lorem brand identity lorem brand identity lorem brand identity",
+      handle: "mock_dribble.test.lens",
+      mocked: true,
+      postId: "asd",
+      service: "dribbble",
     },
   ];
 
@@ -63,7 +110,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: [
       {
         params: {
-          profile: 'asdioio_dribble',
+          profile: "asdioio_dribble",
         },
       },
     ],

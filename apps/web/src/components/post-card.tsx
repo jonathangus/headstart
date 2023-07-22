@@ -7,8 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/card";
-
 import { Button } from "@/components/ui/button";
+
 import { HeartIcon } from "@radix-ui/react-icons";
 import { MagicWandIcon } from "@radix-ui/react-icons";
 
@@ -17,8 +17,8 @@ type Props = {
 };
 export function PostCard({ post }: Props) {
   return (
-    <Card className="w-[350px] overflow-hidden">
-      <CardHeader className="p-0">
+    <Card className="w-full overflow-hidden">
+      <CardHeader className="p-0 max-h-[225px] justify-center overflow-hidden bg-neutral-100">
         <img src={post.image} />
       </CardHeader>
       <CardContent className="p-6 pb-0">
