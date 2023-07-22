@@ -121,29 +121,26 @@ export const createPosts = async (
     referenceModuleInitData: '0x' as `0x${string}`,
   }));
 
-  const postDataUno = postsData[0];
-
-  const data = encodeFunctionData({
-    abi: lenshubFactoryABI,
-    functionName: 'post',
-    args: [postDataUno],
-  });
-
-  console.log('creating posts..');
-
   const lenshubFactoryAddress = '0x60Ae865ee4C725cd04353b5AAb364553f56ceF82';
 
-  const res = await client.writeContract({
-    address: ctx.accountsPerTokenId,
-    abi: aaImplementationABI,
-    functionName: 'executeCall',
-    args: [lenshubFactoryAddress, BigInt(0), data],
-    value: BigInt(0),
-  });
-  console.log('waiting for transaction to finish ');
+  console.log('waiting for creating posts on lens');
 
-  const transaction = await publicClient.waitForTransactionReceipt({
-    hash: res,
-  });
-  console.log('posts created! tx: ' + chalk.yellow(res));
+  for (let post of postsData) {
+    const data = encodeFunctionData({
+      abi: lenshubFactoryABI,
+      functionName: 'post',
+      args: [post],
+    });
+    const res = await client.writeContract({
+      address: ctx.accountsPerTokenId,
+      abi: aaImplementationABI,
+      functionName: 'executeCall',
+      args: [lenshubFactoryAddress, BigInt(0), data],
+      value: BigInt(0),
+    });
+    await publicClient.waitForTransactionReceipt({
+      hash: res,
+    });
+    console.log('post created! tx: ' + chalk.yellow(res));
+  }
 };
