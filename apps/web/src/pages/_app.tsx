@@ -10,17 +10,12 @@ import {
 import "@rainbow-me/rainbowkit/styles.css";
 import { Inter } from "next/font/google";
 
-<<<<<<< HEAD
-import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { configureChains, createConfig, WagmiConfig } from "wagmi";
-=======
 import {
   ConnectButton,
   getDefaultWallets,
   RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
->>>>>>> refs/remotes/origin/main
+} from "@rainbow-me/rainbowkit";
+import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import {
   mainnet,
   polygon,
@@ -28,18 +23,11 @@ import {
   arbitrum,
   zora,
   polygonMumbai,
-<<<<<<< HEAD
 } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { Toaster } from "@/components/ui/toaster";
-=======
-} from 'wagmi/chains';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { publicProvider } from 'wagmi/providers/public';
-import { Toaster } from '@/components/ui/toaster';
-import { LensContextProvider } from '@/context/lens-context';
->>>>>>> refs/remotes/origin/main
+import { LensContextProvider } from "@/context/lens-context";
 
 const queryClient = new QueryClient();
 const inter = Inter({ subsets: ["latin"] });
@@ -53,13 +41,8 @@ const { chains, publicClient } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-<<<<<<< HEAD
   appName: "hack ethcc",
-  projectId: "YOUR_PROJECT_ID",
-=======
-  appName: 'hack ethcc',
-  projectId: '.....' as any,
->>>>>>> refs/remotes/origin/main
+  projectId: "....." as any,
   chains,
 });
 
@@ -74,14 +57,6 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <WagmiConfig config={wagmiConfig}>
         <RainbowKitProvider chains={chains}>
-<<<<<<< HEAD
-          <main
-            className={`w-full flex min-h-screen flex-col items-center p-24 ${inter.className}`}
-          >
-            <Component {...pageProps} />
-          </main>
-          <Toaster />
-=======
           <LensContextProvider>
             <>
               <header>
@@ -91,7 +66,6 @@ export default function App({ Component, pageProps }: AppProps) {
               <Toaster />
             </>
           </LensContextProvider>
->>>>>>> refs/remotes/origin/main
         </RainbowKitProvider>
       </WagmiConfig>
     </QueryClientProvider>

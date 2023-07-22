@@ -1,4 +1,4 @@
-import { PostEntity } from 'shared-types';
+import { PostEntity } from "shared-types";
 import {
   Card,
   CardContent,
@@ -6,20 +6,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-<<<<<<< HEAD
 } from "../components/ui/card";
-import { Button } from "@/components/ui/button";
 
+import { Button } from "@/components/ui/button";
 import { HeartIcon } from "@radix-ui/react-icons";
 import { MagicWandIcon } from "@radix-ui/react-icons";
-=======
-} from '../components/ui/card';
-
-import { Button } from '@/components/ui/button';
-import { HeartIcon } from '@radix-ui/react-icons';
-import { MagicWandIcon } from '@radix-ui/react-icons';
-import { CollectPost } from './collect-post';
->>>>>>> refs/remotes/origin/main
+import { CollectPost } from "./collect-post";
 
 type Props = {
   post: PostEntity;
