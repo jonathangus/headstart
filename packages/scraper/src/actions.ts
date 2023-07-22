@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import "dotenv/config";
 
 import {
   createWalletClient,
@@ -6,6 +6,7 @@ import {
   http,
   parseAbi,
   decodeEventLog,
+  encodeAbiParameters,
 } from 'viem';
 import { polygonMumbai } from 'viem/chains';
 import { UserObject, PostObject } from 'shared-types';
@@ -26,7 +27,7 @@ const transport = http(
 const HEADSTART_ADDRESS = headstartPointer;
 
 const account = privateKeyToAccount(
-  ('0x' + process.env.PRIVATE_KEY) as `0x${string}`
+  ("0x" + process.env.PRIVATE_KEY) as `0x${string}`
 );
 
 const client = createWalletClient({
@@ -46,24 +47,24 @@ type Context = {
 };
 
 export const createUser = async (user: UserObject): Promise<Context> => {
-  console.log('MINTING NFT TO ', account.address);
+  console.log("MINTING NFT TO ", account.address);
   const res = await client.writeContract({
     address: HEADSTART_ADDRESS,
     abi: nftABI,
-    functionName: 'mintProfile',
+    functionName: "mintProfile",
     args: [
       account.address,
       {
         handle: user.handle,
         imageURI: user.imageURI,
-        followModule: '0x0000000000000000000000000000000000000000',
-        followModuleInitData: '0x',
-        followNFTURI: 'ipfs://QmRQ38pPu99Znd9jjQ1gUeSN6G8w5M2spQA7z2nNSs3rh6',
+        followModule: "0x0000000000000000000000000000000000000000",
+        followModuleInitData: "0x",
+        followNFTURI: "ipfs://QmRQ38pPu99Znd9jjQ1gUeSN6G8w5M2spQA7z2nNSs3rh6",
       },
     ],
   });
 
-  console.log('waiting for transaction to finish ');
+  console.log("waiting for transaction to finish ");
 
   const transaction = await publicClient.waitForTransactionReceipt({
     hash: res,
@@ -76,13 +77,13 @@ export const createUser = async (user: UserObject): Promise<Context> => {
     publicClient.readContract({
       address: HEADSTART_ADDRESS,
       abi: nftABI,
-      functionName: 'accountsPerTokenId',
+      functionName: "accountsPerTokenId",
       args: [tokenid as bigint],
     }),
     publicClient.readContract({
       address: HEADSTART_ADDRESS,
       abi: nftABI,
-      functionName: 'profileIdPerTokenId',
+      functionName: "profileIdPerTokenId",
       args: [tokenid as bigint],
     }),
   ]);
@@ -93,7 +94,7 @@ export const createUser = async (user: UserObject): Promise<Context> => {
   );
   console.log(`
     lens handle created at ${chalk.green(
-      user.handle + '.test.lens'
+      user.handle + ".test.lens"
     )} and profile id ${chalk.green(profileIdPerTokenId)}
   `);
 
@@ -107,43 +108,53 @@ export const createPosts = async (
   posts: PostObject[],
   ctx: Context
 ): Promise<void> => {
-  // TODO
-  const freeCollectModule = '0x0BE6bD7092ee83D44a6eC1D949626FeE48caB30c';
+  const feeCollectModule = "0xeb4f3EC9d01856Cec2413bA5338bF35CeF932D82";
+  const mumbaiWMATIC = "0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889";
+
+  const feeCollectModuleInitData = encodeAbiParameters(
+    [
+      { name: "amount", type: "uint256" },
+      { name: "currency", type: "address" },
+      { name: "recipient", type: "address" },
+      { name: "referralFee", type: "uint16" },
+      { name: "followerOnly", type: "bool" },
+    ],
+    [parseEther("0.001"), mumbaiWMATIC, ctx.accountsPerTokenId, 0, false]
+  );
 
   const postsData = posts.map((post) => ({
     profileId: ctx.profileIdPerTokenId,
     contentURI: post.contentURI,
-    collectModule: freeCollectModule as `0x${string}`,
-    collectModuleInitData:
-      '0x0000000000000000000000000000000000000000000000000000000000000000' as `0x${string}`,
+    collectModule: feeCollectModule as `0x${string}`,
+    collectModuleInitData: feeCollectModuleInitData as `0x${string}`,
     referenceModule:
-      '0x0000000000000000000000000000000000000000' as `0x${string}`,
-    referenceModuleInitData: '0x' as `0x${string}`,
+      "0x0000000000000000000000000000000000000000" as `0x${string}`,
+    referenceModuleInitData: "0x" as `0x${string}`,
   }));
 
   const postDataUno = postsData[0];
 
   const data = encodeFunctionData({
     abi: lenshubFactoryABI,
-    functionName: 'post',
+    functionName: "post",
     args: [postDataUno],
   });
 
-  console.log('creating posts..');
+  console.log("creating posts..");
 
-  const lenshubFactoryAddress = '0x60Ae865ee4C725cd04353b5AAb364553f56ceF82';
+  const lenshubFactoryAddress = "0x60Ae865ee4C725cd04353b5AAb364553f56ceF82";
 
   const res = await client.writeContract({
     address: ctx.accountsPerTokenId,
     abi: aaImplementationABI,
-    functionName: 'executeCall',
+    functionName: "executeCall",
     args: [lenshubFactoryAddress, BigInt(0), data],
     value: BigInt(0),
   });
-  console.log('waiting for transaction to finish ');
+  console.log("waiting for transaction to finish ");
 
   const transaction = await publicClient.waitForTransactionReceipt({
     hash: res,
   });
-  console.log('posts created! tx: ' + chalk.yellow(res));
+  console.log("posts created! tx: " + chalk.yellow(res));
 };
