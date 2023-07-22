@@ -1,9 +1,8 @@
+import { headstartPointer,nftABI } from 'abi';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { createWalletClient, http, createPublicClient } from 'viem';
-import { polygonMumbai } from 'viem/chains';
-import { UserObject, PostObject } from 'shared-types';
+import { createPublicClient,createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
-import { nftABI, headstartPointer } from 'abi';
+import { polygonMumbai } from 'viem/chains';
 
 const transport = http(
   `https://polygon-mumbai.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`

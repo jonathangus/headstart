@@ -1,6 +1,4 @@
-import { GenerateWallet } from '@/components/generate-wallet';
-import { createContext, PropsWithChildren, useContext } from 'react';
-import { useEffect, useState } from 'react';
+import { Web3AuthModalPack } from '@safe-global/auth-kit';
 import {
   ADAPTER_EVENTS,
   CHAIN_NAMESPACES,
@@ -8,10 +6,11 @@ import {
   UserInfo,
   WALLET_ADAPTERS,
 } from '@web3auth/base';
-import { OpenloginAdapter } from '@web3auth/openlogin-adapter';
 import { Web3AuthOptions } from '@web3auth/modal';
-import { Web3AuthModalPack, Web3AuthConfig } from '@safe-global/auth-kit';
-import { polygonMumbai } from 'wagmi/chains';
+import { OpenloginAdapter } from '@web3auth/openlogin-adapter';
+import { createContext, PropsWithChildren, useContext } from 'react';
+import { useEffect, useState } from 'react';
+
 import { useToast } from '@/components/ui/use-toast';
 
 const LOGIN_MODAL_EVENTS = {

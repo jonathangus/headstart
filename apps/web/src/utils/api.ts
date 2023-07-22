@@ -1,4 +1,4 @@
-import { request, gql } from 'graphql-request';
+import { gql, request } from 'graphql-request';
 import { LensPost, PostEntity, UserEntity } from 'shared-types';
 
 const postsQuery = gql`
@@ -111,7 +111,7 @@ export const getProfile = async (handle: string): Promise<UserEntity> => {
     }
   `;
 
-  const data = await request(
+  const data: any = await request(
     'https://api.thegraph.com/subgraphs/name/0xpilou/ethcc-headstart',
     query,
     { handle }

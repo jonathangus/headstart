@@ -1,14 +1,6 @@
-import { useLensContext } from '@/context/lens-context';
 import { erc20ABI, lenshubFactoryABI, lenshubFactoryAddress } from 'abi';
+import { useState } from 'react';
 import { PostEntity } from 'shared-types';
-import {
-  useAccount,
-  useContractRead,
-  useContractWrite,
-  useWaitForTransaction,
-} from 'wagmi';
-import { Button } from './ui/button';
-import { useToast } from './ui/use-toast';
 import {
   createPublicClient,
   encodeAbiParameters,
@@ -16,8 +8,17 @@ import {
   parseEther,
 } from 'viem';
 import { polygonMumbai } from 'viem/chains';
-import { useState } from 'react';
+import {
+  useAccount,
+  useContractRead,
+  useContractWrite,
+  useWaitForTransaction,
+} from 'wagmi';
+
 import { WMATIC } from '@/constants';
+
+import { Button } from './ui/button';
+import { useToast } from './ui/use-toast';
 
 type Props = {
   post: PostEntity;
