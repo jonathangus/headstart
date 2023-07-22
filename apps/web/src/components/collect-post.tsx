@@ -70,8 +70,7 @@ export function CollectPost({ post }: Props) {
   let postId = BigInt(2);
 
   if (post.publicationId) {
-    const sliced = post.publicationId.split("-");
-
+    const sliced = post.publicationId.split('-');
     publisherId = BigInt(Number(sliced[0]));
     postId = BigInt(Number(sliced[1]));
   }

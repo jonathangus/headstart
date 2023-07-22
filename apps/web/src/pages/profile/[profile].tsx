@@ -22,6 +22,7 @@ import { getPostsByUser, getProfile } from '@/utils/api';
 import { ProfileContextProvider } from '@/context/profile-context';
 import { GenerateWallet } from '@/components/generate-wallet';
 import { SafeKitContextProvider } from '@/context/safe-kit-auth-context';
+import { SafekitLogin } from '@/components/safekit-login';
 
 type Props = {
   user: UserEntity;
@@ -76,7 +77,6 @@ const Page = (props: Props) => {
                   <div className="text-xs mb-3 text-gray-500">
                     {user.accountAddress}
                   </div>
-                  <WithdrawFunds />
                 </div>
               </div>
               <div className="flex flex-row gap-4">

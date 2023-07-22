@@ -13,18 +13,18 @@ import { Web3AuthOptions } from '@web3auth/modal';
 import { Web3AuthModalPack, Web3AuthConfig } from '@safe-global/auth-kit';
 import { polygonMumbai } from 'wagmi/chains';
 import { useToast } from '@/components/ui/use-toast';
-import {
-  getAdapterSocialLogins,
-  LOGIN_MODAL_EVENTS,
-  LoginModal,
-  OPENLOGIN_PROVIDERS,
-  UIConfig,
-} from '@web3auth/ui';
+
+const LOGIN_MODAL_EVENTS = {
+  INIT_EXTERNAL_WALLETS: 'INIT_EXTERNAL_WALLETS',
+  LOGIN: 'LOGIN',
+  DISCONNECT: 'DISCONNECT',
+  MODAL_VISIBILITY: 'MODAL_VISIBILITY',
+};
 
 type SafeKitContext = {
   isLoggingIn: boolean;
   signIn: () => void;
-  safeAuthSignInRespons: any;
+  safeAuthSignInResponse: any;
 };
 
 export const safeKitContext = createContext<SafeKitContext>(
@@ -60,7 +60,7 @@ export const SafeKitContextProvider = ({
         },
         uiConfig: {
           theme: 'dark',
-          loginMethodsOrder: ['google', 'twitter'],
+          loginMethodsOrder: ['twitter', 'google'],
         },
       };
 
@@ -99,10 +99,12 @@ export const SafeKitContextProvider = ({
       });
 
       const connectedHandler: Web3AuthEventListener = (data) => {
+        console.log('connected');
         setIsLoggingIn(false);
       };
 
       const disconnectedHandler: Web3AuthEventListener = (data) => {
+        console.log('disconnected');
         setIsLoggingIn(false);
       };
 
@@ -147,7 +149,15 @@ export const SafeKitContextProvider = ({
   }, []);
 
   const login = async () => {
+    console.log('trying to login', {
+      web3AuthModalPack,
+      safeAuthSignInResponse,
+    });
     if (!web3AuthModalPack) return;
+
+    if (safeAuthSignInResponse) {
+      return;
+    }
     setIsLoggingIn(true);
     try {
       const signInInfo = await web3AuthModalPack.signIn();
@@ -156,7 +166,10 @@ export const SafeKitContextProvider = ({
       setSafeAuthSignInResponse(signInInfo);
       setUserInfo(userInfo || undefined);
       setProvider(web3AuthModalPack.getProvider() as SafeEventEmitterProvider);
+
+      window.localStorage.setItem('safe', 'true');
     } catch (e: any) {
+      console.log(e);
       toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
@@ -172,6 +185,7 @@ export const SafeKitContextProvider = ({
     safeAuthSignInResponse,
     userInfo,
     isLoggingIn,
+    provider,
   };
 
   return (

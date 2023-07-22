@@ -12,9 +12,12 @@ import { aaImplementationABI, erc20ABI } from 'abi';
 import { useToast } from './ui/use-toast';
 import { WMATIC } from '@/constants';
 import { useProfileContext } from '@/context/profile-context';
+import { ethers } from 'ethers';
+import { EthersAdapter } from '@safe-global/protocol-kit';
+import { useSafeKitContext } from '@/context/safe-kit-auth-context';
+import { useEffect } from 'react';
 
 export function WithdrawFunds() {
-  const tokenId = 1;
   const { user, ownerOfToken } = useProfileContext();
   const balance = useBalance({
     address: user.accountAddress as `0x${string}`,
@@ -48,6 +51,15 @@ export function WithdrawFunds() {
     },
   });
 
+  return (
+    <div
+      onClick={() => {
+        withdrawfunds();
+      }}
+    >
+      asdasd
+    </div>
+  );
   if (!account) {
     return amount;
   }
