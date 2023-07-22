@@ -37,7 +37,7 @@ contract HeadstartNFT is ERC721, Ownable {
         address _accountImplementation,
         address _profileCreationProxyAddress,
         address _lensHubAddress
-    ) ERC721("Unswosh NFT", "UNSWOSH") {
+    ) ERC721("Headstart NFT", "HEADSTART") {
         lensHub = ILensHub(_lensHubAddress);
         registry = IERC6551Registry(_erc6551Registry);
 
