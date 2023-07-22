@@ -7,7 +7,7 @@ type Props = {
 
 export function PostsList({ items }: Props) {
   return (
-    <div>
+    <div className="grid grid-cols-3 gap-8">
       {items.map((post, i) => (
         <PostCard post={post} key={i} />
       ))}

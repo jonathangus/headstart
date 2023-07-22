@@ -22,4 +22,5 @@ export type PostEntity = {
   handle: string;
   postId: string;
   mocked: boolean;
+  service: string;
 };
