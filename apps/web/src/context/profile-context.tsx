@@ -6,6 +6,7 @@ import { useContractRead } from 'wagmi';
 type ProfileContext = {
   user: UserEntity;
   isClaimed: boolean;
+  ownerOfToken: `0x${string}`;
 };
 
 export const profileContext = createContext<ProfileContext>(
@@ -32,15 +33,11 @@ export const ProfileContextProvider = ({
 
   const isClaimed = owner.toLowerCase() !== DEFAULT_OWNER.toLowerCase();
 
-  console.log({
-    isClaimed,
-    owner,
-    DEFAULT_OWNER,
-  });
   const value = {
     user,
     owner,
     isClaimed,
+    ownerOfToken: owner || user.ownedBy,
   };
 
   return (

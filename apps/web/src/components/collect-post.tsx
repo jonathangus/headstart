@@ -17,6 +17,7 @@ import {
 } from 'viem';
 import { polygonMumbai } from 'viem/chains';
 import { useState } from 'react';
+import { WMATIC } from '@/constants';
 
 type Props = {
   post: PostEntity;
@@ -31,7 +32,6 @@ const publicClient = createPublicClient({
   transport,
 });
 
-const WMATIC = '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889';
 const FEE_COLLECT_MODULE = '0xeb4f3EC9d01856Cec2413bA5338bF35CeF932D82';
 
 export function CollectPost({ post }: Props) {

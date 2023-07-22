@@ -41,16 +41,32 @@ export const service: Service = {
       // upload to ipfs
       const body = `view full content on ${post.link}`;
       const name = post.title;
-
       const data = {
+        version: '2.0.0',
+        metadata_id: '${uuid()}',
+        description: 'gm (🌿, 🌿)',
+        image:
+          'https://ipfs.4everland.io/ipfs/bafkreigflfr75iwyond7p4b3ggv3drivofhcakokpmftmsf35v5ukbhsva',
+        imageMimeType: 'image/png',
+        name: 'Post by ?.lens',
+        attributes: [{ traitType: 'type', value: 'POST' }],
+        media: [
+          {
+            item: 'https://ipfs.4everland.io/ipfs/bafkreigflfr75iwyond7p4b3ggv3drivofhcakokpmftmsf35v5ukbhsva',
+            type: 'image/png',
+            altTag: '',
+          },
+        ],
+        appId: 'ImageUploader',
+        locale: 'en',
+        mainContentFocus: 'IMAGE',
+      };
+      const dataa = {
         version: '1.0.0',
         metadata_id: uuidv4(),
         description: `${body}`,
         content: `${body}`,
         name,
-        // contentFocus: 'Image',
-        locale: 'en',
-
         attributes: [
           {
             traitType: 'type',
@@ -61,6 +77,7 @@ export const service: Service = {
           {
             url: post.src,
             mimeType: 'image/png',
+            altTag: '',
           },
         ],
         appId: 'eth cc',
