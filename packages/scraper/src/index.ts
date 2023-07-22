@@ -4,26 +4,26 @@ import { service as dribble } from './platforms/dribble';
 import { Service } from 'shared-types';
 import axios from 'axios';
 import chalk from 'chalk';
-import { createUser } from './actions';
+import { createPosts, createUser } from './actions';
 
 const main = async () => {
-  //   const response = await prompt([
-  //     {
-  //       type: 'input',
-  //       name: 'name',
-  //       message: 'What is your name?',
-  //     },
-  //     {
-  //       type: 'input',
-  //       name: 'username',
-  //       message: 'What is your username?',
-  //     },
-  //   ]);
+  const response: any = await prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'Name?',
+    },
+    // {
+    //   type: 'input',
+    //   name: 'username',
+    //   message: 'What is your username?',
+    // },
+  ]);
 
-  const { name, platform } = {
+  const { platform } = {
     platform: 'dribble',
-    name: 'eriko',
   };
+  const { name } = response;
 
   const service: Service = dribble;
   console.log(
@@ -32,7 +32,7 @@ const main = async () => {
       ` on platform ${chalk.red(platform)}...`
   );
 
-  const user = await service.getUser({});
+  const user = await service.getUser({ name });
   const posts = await service.getPosts({});
 
   let API_ENDPOINT = 'https://ethcc-web.vercel.app/api/convert';
@@ -43,7 +43,7 @@ const main = async () => {
   console.log(`creating user ${chalk.green('done')}`);
 
   console.log(`creating posts onchain`);
-  await createUser(user);
+  await createPosts(posts);
   console.log(`creating posts ${chalk.green('done')}`);
 
   console.log(chalk.bgGreen('DONE'));

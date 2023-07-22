@@ -40,23 +40,34 @@ contract UnswoshNFT is ERC721, Ownable {
         profileCreationProxyAddress = _profileCreationProxyAddress;
     }
 
-    function mintProfile(address _to, PartialCreateProfileData calldata _profileData) public {
+    function mintProfile(
+        address _to,
+        PartialCreateProfileData calldata _profileData
+    ) public {
         uint256 tokenId = tokenCount;
         _safeMint(_to, tokenId);
         tokenCount++;
 
-        address newAccountAddress =
-            registry.createAccount(accountImplementation, block.chainid, address(this), tokenId, 0, "");
-
-        DataTypes.CreateProfileData memory fullProfileData = DataTypes.CreateProfileData(
-            newAccountAddress,
-            _profileData.handle,
-            _profileData.imageURI,
-            _profileData.followModule,
-            _profileData.followModuleInitData,
-            _profileData.followNFTURI
+        address newAccountAddress = registry.createAccount(
+            accountImplementation,
+            block.chainid,
+            address(this),
+            tokenId,
+            0,
+            ""
         );
 
-        MockProfileCreationProxy(profileCreationProxyAddress).proxyCreateProfile(fullProfileData);
+        DataTypes.CreateProfileData memory fullProfileData = DataTypes
+            .CreateProfileData(
+                newAccountAddress,
+                _profileData.handle,
+                _profileData.imageURI,
+                _profileData.followModule,
+                _profileData.followModuleInitData,
+                _profileData.followNFTURI
+            );
+
+        MockProfileCreationProxy(profileCreationProxyAddress)
+            .proxyCreateProfile(fullProfileData);
     }
 }

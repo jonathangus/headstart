@@ -15,3 +15,11 @@ export type Service = {
   getUser: (args: any) => Promise<UserObject>;
   getPosts: (args: any) => Promise<PostObject[]>;
 };
+
+export type PostEntity = {
+  image: string;
+  title: string;
+  handle: string;
+  postId: string;
+  mocked: boolean;
+};
