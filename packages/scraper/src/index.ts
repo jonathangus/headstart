@@ -39,11 +39,11 @@ const main = async () => {
   API_ENDPOINT = 'http://localhost:3000/api/convert';
 
   console.log(`creating user onchain`);
-  await createUser(user);
+  const ctx = await createUser(user);
   console.log(`creating user ${chalk.green('done')}`);
 
   console.log(`creating posts onchain`);
-  await createPosts(posts);
+  await createPosts(posts, ctx);
   console.log(`creating posts ${chalk.green('done')}`);
 
   console.log(chalk.bgGreen('DONE'));
