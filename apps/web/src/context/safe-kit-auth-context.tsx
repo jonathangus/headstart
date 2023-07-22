@@ -148,12 +148,6 @@ export const SafeKitContextProvider = ({
     })();
   }, []);
 
-  useEffect(() => {
-    if (window.localStorage.getItem('safe') && web3AuthModalPack) {
-      login();
-    }
-  }, [web3AuthModalPack]);
-
   const login = async () => {
     console.log('trying to login', {
       web3AuthModalPack,
@@ -166,7 +160,6 @@ export const SafeKitContextProvider = ({
     }
     setIsLoggingIn(true);
     try {
-      console.log('PROVIDER:', web3AuthModalPack.getProvider());
       const signInInfo = await web3AuthModalPack.signIn();
       const userInfo = await web3AuthModalPack.getUserInfo();
 
@@ -187,13 +180,12 @@ export const SafeKitContextProvider = ({
     }
   };
 
-  console.log({ safeAuthSignInResponse });
-
   const value = {
     login,
     safeAuthSignInResponse,
     userInfo,
     isLoggingIn,
+    provider,
   };
 
   return (

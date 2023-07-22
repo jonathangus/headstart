@@ -77,7 +77,6 @@ const Page = (props: Props) => {
                   <div className="text-xs mb-3 text-gray-500">
                     {user.accountAddress}
                   </div>
-                  <WithdrawFunds />
                 </div>
               </div>
               <div className="flex flex-row gap-4">
@@ -86,7 +85,6 @@ const Page = (props: Props) => {
             </CardContent>
           </Card>
 
-          <SafekitLogin />
           <PostsList items={posts || []} />
         </ProfileContextProvider>
       </SafeKitContextProvider>
