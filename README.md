@@ -42,7 +42,8 @@ Even though we tried getting access to the Infura NFT API throughout the hackath
 ### Headstart Onchain Flow
 
 - Step 1
-  <img width="1920" alt="Creating_Content_Creator_Profile_Onchain" src="https://github.com/jonathangus/headstart/assets/76021631/127001cf-06d6-4ff0-b144-f7a6f4b54f0a">
+<img width="1920" alt="Creating_Content_Creator_Profile_Onchain" src="https://github.com/jonathangus/headstart/assets/76021631/847ed11b-011f-4fa1-9b4c-02ab3c1b153b">
+
 
 
 - Step 2
