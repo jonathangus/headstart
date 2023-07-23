@@ -1,80 +1,95 @@
-# HEADSTART ONCHAIN
+# HEADSTART
 
-insert description
+We’re looking to nudge web2 creators over to the open and decentralized economy. Mirroring their existing web2 content and deploying it via token bound accounts (ERC-6551), their creations are minted as NFTs within the token bound account and other people can collect the posts. The funds will be accumulated into the account and when the original creator is ready, they RECLAIM their ownership and we’ll transfer the ERC-6551 to their new SAFE account abstraction wallet. 
+
+1. We’ll mirror the content from popular inspiration and portfolio sites.
+
+2. Deploy a token bound account for each of the creators with a lens handle and thereafter the creations as posts.
+
+3. The posts generate tips from the community via collects. The funds are stored in the respective token bound account.
+
+4. The creators can go in and claim their profile, validate using their source account and we’ll initiate a transfer to the real owner to their new SAFE account abstraction wallet.
+
+_We’re all looking for cool ways to onboard ✨the next billion users✨_
+
+
+<img width="400" alt="Creating_Content_Creator_Profile_Onchain" src="https://github.com/jonathangus/headstart/assets/42701407/6a32bba2-8595-4f9b-9d27-f62add6013b1">
+
+<img width="400" alt="Mirroring_web2_content_on_Lens" src="https://github.com/jonathangus/headstart/assets/42701407/55586fb5-c02e-4672-b517-1f5dbe5d9568">
+
+<img width="400" alt="Enabling_fans_to_support_content_creators" src="https://github.com/jonathangus/headstart/assets/42701407/029d991d-fcc0-41db-bb8e-6159e12d52ab">
+
+<img width="400" alt="Mirroring_web2_content_on_Lens" src="https://github.com/jonathangus/headstart/assets/42701407/9ce20900-1fe4-48b1-b992-7f542f53d43d">
+
+
 
 # Sponsor & Bounties
 
-### Covalent
-
-Fetching the asset data of ERC 20/721/1155 across all swosh.cash supported chains via Covalent unified API. One challenge we had was that we were not possible to get metadata because we had to use no-nft-fetch=true but a great support for multichain dapps.
-
-### Lens
-
-integrated Lens following used as an address book to easily find recipients for your token transfers. Almost like a Lens-transfer ;)
-
-### Future is multichain!
-
 ### Polygon
+🤝 Deployed to Mumbai and Polygon powering a core part of the Headstart ecosystem, Lens Protocol. Utilizing SAFE{Core} Account Abstraction SDk we used SAFE Account Abstraction for creating what we believe could be a future onboarding mechanism. By incentivizing creators with content they already created they can already start reaping the benefits of accumulating followers and collecting (funds). But to naturally onboard them to transfer the ownership of the Token Bound Account ERC-6651 we utilize Web3Auth social login and in the background a fully functioning SAFE wallet.
 
-The future of the Ethereum ecosystem is multichain, and polygon has a proven track record of bringing in fast and cheap transaction and a thriving community. Being the home to Lens and newly moved Yoots it’s a chain that would benefit greately from a new and easy way to transfer tokens around community members and for offloading from hot to cold storage.
-
-We want to push this tool on Polygon because the massive community and we believe that we can satisfy its needs! By delivering a better UX and empowering NFT communitys with easier transfers.
-
-### Base
-
-Simple and smooth deployment, we also created a faucet for people to easily get their hands on their first BASE NFT via https://swosh.cash/faucet
-to also help the future base devs to be up and running to try with free mint ERC 20/721/1155.
-
-### Scroll
-
-Great experience of Scroll alphanet: open the docs, check the rpc and we we're done! Only challenge we had was that scroll is not supported by wagmi so we had some small issues with the config. We're strong believers in the growth of scroll zkEVM with lower cost+shorter block times and higher throughput! Looking forward for a etherscan block explorer. Deployed on Scroll as well as integrated with lens! Scroll ♥ Lens | Cross-chain Decentralized Social Media
-
-### Infura
-
-Even though we tried getting access to the Infura NFT API throughout the hackathon we didn't get access. However, we believe it could be a great complement in getting access to NFT data and not having a single point of failure would be beneficial.
-
-### Headstart Onchain Contract Address Registry
-
-| Chain  | Address                                    | Explorer                                                                          |
-| ------ | ------------------------------------------ | --------------------------------------------------------------------------------- |
-| mumbai | 0x5AaE213043e6378BEA5ca4d6f8e37e9DC80Edf9c | https://mumbai.polygonscan.com/address/0x5AaE213043e6378BEA5ca4d6f8e37e9DC80Edf9c |
-
-### Headstart Onchain Flow
-
-- Step 1
-<img width="1920" alt="Creating_Content_Creator_Profile_Onchain" src="https://github.com/jonathangus/headstart/assets/76021631/847ed11b-011f-4fa1-9b4c-02ab3c1b153b">
+Link to the relevant section of code: 
+https://github.com/jonathangus/headstart/blob/main/apps/web/src/context/safe-kit-auth-context.tsx
 
 
+### The Graph
+**New Headstart Subgraph:**
+https://thegraph.com/hosted-service/subgraph/0xpilou/ethcc-headstart
 
-- Step 2
-<img width="1920" alt="Mirroring_web2_content_on_Lens" src="https://github.com/jonathangus/headstart/assets/76021631/4ddaeb6e-8c6d-47b0-b158-f69b2ba85ffb">
+type Profile @entity {
+  id: String!
+  accountAddress: Bytes!
+  ownedBy: Bytes! 
+  tokenId: BigInt!
+  handle: String! 
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  profileId: BigInt!
+}
 
+**Best use of Existing subgraph, our implementation:**
+https://github.com/jonathangus/headstart/tree/main/apps/the-graph
 
-- Step 3
-<img width="1920" alt="Enabling_fans_to_support_content_creators" src="https://github.com/jonathangus/headstart/assets/76021631/9c72c0ef-80c8-448b-8b22-ce2834ab0d21">
+### SAFE
+Utilizing SAFE{Core} Account Abstraction SDk we used SAFE Account Abstraction for creating what we believe could be a future onboarding mechanism. By incentivizing creators with content they already created they can already start reaping the benefits of accumulating followers and collecting (funds). But to naturally onboard them to transfer the ownership of the Token Bound Account ERC-6651 we utilize Web3Auth social login and in the background a fully functioning SAFE wallet.
 
-- Step 4
-<img width="1920" alt="Onboarding_Content_Creator" src="https://github.com/jonathangus/headstart/assets/76021631/ba2ec178-5155-4eba-a474-dee1efb4050d">
+Link to implementation:
+https://github.com/jonathangus/headstart/blob/main/apps/web/src/context/safe-kit-auth-context.tsx
+
+### ApeCoin DAO
+Using the ERC-6551 and SAFE Account Abstraction Wallet we believe this has true potential to benefit the community, properly incentivizing more people to join the ecosystem and put even more great content onchain!
+
+### NOUNS
+We kept the Nounish vibes, Headstart ⌐◨-◨ looking at creating a new onboarding mechanism utilizing the latest tech and exploring the realm of possibilities.
+
 
 
 ### Core packages
 
-- `ERC-6551`
-- `TheGraph`
-- `SAFE{CORE} Account abstraction SDK + Web3auth for social login`
-- `Wagmi`
-- `viem`
-- `LensClientSDK`
-- `Foundry`
-- `Next.js`
-- `tailwind`
-- `turborepo`
+- `ethers`
+- `wagmi`
+- `hardhat`
+- `next.js`
+- `typechain`
+
+### Features?
+
+- built on top of wagmi (❤️) with recognisable api
+- write and read hooks are typesafe
+- sync deployments to frontend so you dont manually have to update addresses
+- no theming or css
 
 ### Apps and Packages
 
 - `web`: another [Next.js](https://nextjs.org) app
-- `contracts`: smart contracts foundry project
-- `the-graph`: TheGraph directory
+- `smart-contracts`: smart contracts with hardhat
+- `web3-config`: deployments, generated types from contract and common web3 config
+- `ui`: a stub React component library shared by both `web` and `docs` applications
+- `config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
 ### Utilities
 
