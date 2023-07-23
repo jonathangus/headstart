@@ -4,7 +4,7 @@ We’re looking to nudge web2 creators over to the open and decentralized econom
 
 1. We’ll mirror the content from popular inspiration and portfolio sites.
 
-2. Deploy a token bound account for each of the creators with a lens handle and thereafter the creations as posts.
+2. Deploy a token bound account and a lens handle for each of the creators and thereafter the creations as posts.
 
 3. The posts generate tips from the community via collects. The funds are stored in the respective token bound account.
 
@@ -57,6 +57,9 @@ type Profile @entity {
 
 **Best use of Existing subgraph, our implementation:**
 
+We integrated Lens Subgraphs to build components of our frontend.
+
+[Link to our implementation](https://github.com/jonathangus/headstart/blob/main/apps/web/src/utils/api.ts)
 
 
 ### SAFE
