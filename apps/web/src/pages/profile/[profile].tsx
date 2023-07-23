@@ -52,59 +52,28 @@ const Page = (props: Props) => {
     <>
       <SafeKitContextProvider>
         <ProfileContextProvider user={user}>
-<<<<<<< HEAD
           <div className="flex justify-between w-full mb-16 items-start">
             <div className="flex flex-row gap-4 items-center p-2">
               <div className="gap-2">
                 <h1 className="flex flex-row mb-4">
                   <AvatarIcon className="mr-2 h-16 w-16" />
-=======
-          <Card className="w-full mb-16">
-            <CardContent className="flex justify-between p-4 items-start">
-              <div className="flex flex-row gap-4 items-center p-2">
-                <Avatar>
-                  <AvatarImage />
-                  <AvatarFallback>
-                    {user.handle.slice(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="gap-2">
-                  <div className="flex flex-row gap-4">
-                    <h1 className="text-2xl">{user.handle}.lens</h1>
-                  </div>
-
-                  <div className="text-xs mb-3 text-gray-500">
-                    {user.accountAddress}
-                  </div>
->>>>>>> e4ce6a670014220f7eaa4d3a4a7b5f76c3be64e8
                   <div>
                     <h1 className="text-3xl">{user.handle}.lens</h1>
                     <WithdrawFunds />
                   </div>
-<<<<<<< HEAD
                 </h1>
                 <p className="text-m mb-3">
                   <ClaimModal />
-                  <Badge className="mr-3 py-1 gap-2 pr-0 bg-neutral-100">
+                  <Badge className=" pointer-events-none mr-3 py-1 gap-2 pr-0 bg-neutral-100">
                     <span className="text-neutral-400">ERC-6551</span>
                     <Badge className="mr-1 p-1" variant="secondary">
                       {user.accountAddress}
-=======
-
-                  <p className="text-m mb-3">
-                    <ClaimModal />
-                    <Badge className="mr-3 py-1 gap-2 pr-0">
-                      ERC-6551
-                      <Badge className="mr-1 p-1" variant="secondary">
-                        {user.accountAddress}
-                      </Badge>
->>>>>>> e4ce6a670014220f7eaa4d3a4a7b5f76c3be64e8
                     </Badge>
-                  </p>
-                </div>
+                  </Badge>
+                </p>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
           <PostsList sameHeight items={posts || []} />
         </ProfileContextProvider>
       </SafeKitContextProvider>
