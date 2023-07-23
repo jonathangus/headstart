@@ -25,7 +25,7 @@ export function WithdrawFunds() {
   const { address: account } = useAccount();
 
   const amount = (
-    <div className="text-2xl text-neutral-400">
+    <div className="text-m text-neutral-400">
       {balance?.data?.formatted || 0} WMATIC collected
     </div>
   );

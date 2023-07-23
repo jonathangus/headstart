@@ -54,16 +54,16 @@ const Page = (props: Props) => {
             <div className="flex flex-row gap-4 items-center p-2">
               <div className="gap-2">
                 <h1 className="flex flex-row mb-4">
-                  <AvatarIcon className="mr-2 h-24 w-24" />
+                  <AvatarIcon className="mr-2 h-16 w-16" />
                   <div>
-                    <h1 className="text-5xl mb-2">{user.handle}.lens</h1>
+                    <h1 className="text-3xl">{user.handle}.lens</h1>
                     <WithdrawFunds />
                   </div>
                 </h1>
                 <p className="text-m mb-3">
                   <ClaimModal />
-                  <Badge className="mr-3 py-1 gap-2 pr-0">
-                    ERC-6551
+                  <Badge className="mr-3 py-1 gap-2 pr-0 bg-neutral-100">
+                    <span className="text-neutral-400">ERC-6551</span>
                     <Badge className="mr-1 p-1" variant="secondary">
                       {user.accountAddress}
                     </Badge>
