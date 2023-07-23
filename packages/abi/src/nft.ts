@@ -1,4 +1,4 @@
-export const headstartPointer = '0xa1369C9c576694C2a312C7cf48e493d3928e38ba';
+export const headstartPointer = '0x5aae213043e6378bea5ca4d6f8e37e9dc80edf9c';
 export const nftABI = [
   {
     inputs: [

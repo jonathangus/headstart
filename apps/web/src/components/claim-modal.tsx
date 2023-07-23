@@ -1,10 +1,10 @@
-import { DownloadIcon } from '@radix-ui/react-icons';
-import { AvatarIcon } from '@radix-ui/react-icons';
-import { ReloadIcon } from '@radix-ui/react-icons';
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
-import { useState } from 'react';
-import { useAccount } from 'wagmi';
+import { DownloadIcon } from "@radix-ui/react-icons";
+import { AvatarIcon } from "@radix-ui/react-icons";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { useState } from "react";
+import { useAccount } from "wagmi";
 
 import {
   Dialog,
@@ -12,14 +12,15 @@ import {
   DialogDescription,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useProfileContext } from '@/context/profile-context';
-import { useSafeKitContext } from '@/context/safe-kit-auth-context';
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useProfileContext } from "@/context/profile-context";
+import { useSafeKitContext } from "@/context/safe-kit-auth-context";
 
-import { Button } from './ui/button';
-import { useToast } from './ui/use-toast';
+import { Button } from "./ui/button";
+import { useToast } from "./ui/use-toast";
+import { Badge } from "@/components/ui/badge";
 
 export function ClaimModal() {
   const { user, isClaimed } = useProfileContext();
@@ -30,19 +31,19 @@ export function ClaimModal() {
 
   const { isSuccess, mutate, isLoading } = useMutation({
     mutationFn: (args: any) => {
-      return axios.post('/api/claim', args);
+      return axios.post("/api/claim", args);
     },
     onSuccess: () => {
       toast({
-        title: 'Claim successful!',
+        title: "Claim successful!",
         description:
-          'Now you have a erc-6651 token and a 4337-account connected to it.',
+          "Now you have a erc-6651 token and a 4337-account connected to it.",
       });
     },
     onError: (e: any) => {
       toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
         description: e.message,
       });
     },
@@ -117,8 +118,8 @@ export function ClaimModal() {
         <DialogTitle>Transfer ownership</DialogTitle>
         <DialogDescription>
           {safeAuthSignInResponse
-            ? 'This token bound account token will be transfered to your wallet'
-            : 'You are indeed the owner of this account! Use social login with SAFE kit to generate a wallet'}
+            ? "This token bound account token will be transfered to your wallet"
+            : "You are indeed the owner of this account! Use social login with SAFE kit to generate a wallet"}
         </DialogDescription>
 
         {safeAuthSignInResponse && (
@@ -160,7 +161,7 @@ export function ClaimModal() {
               {isLoggingIn ? (
                 <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
               ) : (
-                'Create wallet'
+                "Create wallet"
               )}
             </Button>
           </div>
@@ -171,10 +172,11 @@ export function ClaimModal() {
   return (
     <Dialog open={open}>
       <DialogTrigger>
-        <Button variant="outline">
+        <Badge className="mr-3 py-2 bg-green-600">Unclaimed</Badge>
+        {/* <Button variant="outline">
           <AvatarIcon className="mr-2 h-4 w-4" />
           Claim handle
-        </Button>
+        </Button> */}
       </DialogTrigger>
       <DialogContent>{node}</DialogContent>
     </Dialog>

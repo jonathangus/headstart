@@ -4,13 +4,16 @@ import { PostEntity, UserEntity } from 'shared-types';
 
 import { ClaimModal } from '@/components/claim-modal';
 import { PostsList } from '@/components/posts-list';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { WithdrawFunds } from '@/components/withdraw-funds';
 import { ProfileContextProvider } from '@/context/profile-context';
 import { SafeKitContextProvider } from '@/context/safe-kit-auth-context';
 import { getPostsByUser, getProfile } from '@/utils/api';
-import { WithdrawFunds } from '@/components/withdraw-funds';
+
+import { Badge } from '@/components/ui/badge';
+import { AvatarIcon } from '@radix-ui/react-icons';
+import { Card, CardContent } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 
 type Props = {
   user: UserEntity;
@@ -62,20 +65,28 @@ const Page = (props: Props) => {
                   <div className="flex flex-row gap-4">
                     <h1 className="text-2xl">{user.handle}.lens</h1>
                   </div>
+
                   <div className="text-xs mb-3 text-gray-500">
                     {user.accountAddress}
                   </div>
                   <div>
+                    <h1 className="text-5xl mb-2">{user.handle}.lens</h1>
                     <WithdrawFunds />
                   </div>
+
+                  <p className="text-m mb-3">
+                    <ClaimModal />
+                    <Badge className="mr-3 py-1 gap-2 pr-0">
+                      ERC-6551
+                      <Badge className="mr-1 p-1" variant="secondary">
+                        {user.accountAddress}
+                      </Badge>
+                    </Badge>
+                  </p>
                 </div>
-              </div>
-              <div className="flex flex-row gap-4">
-                <ClaimModal />
               </div>
             </CardContent>
           </Card>
-
           <PostsList sameHeight items={posts || []} />
         </ProfileContextProvider>
       </SafeKitContextProvider>
