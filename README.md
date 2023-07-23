@@ -127,7 +127,7 @@ yarn build
 
 #### Pre-requisite
 
-- Foundry installed [see docs](https://book.getfoundry.sh/getting-started/installation)
+- Foundry installed [(see docs)](https://book.getfoundry.sh/getting-started/installation)
 
 To deploy Headstart contract :
 
