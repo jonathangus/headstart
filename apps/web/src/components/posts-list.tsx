@@ -13,7 +13,7 @@ export function PostsList({ items, sameHeight }: Props) {
       return 'h-[275px]';
     }
 
-    if (i % 1 === 0) {
+    if (i % 4 === 0) {
       return 'h-[200px]';
     } else if (i % 3 === 0) {
       return 'h-[320px]';

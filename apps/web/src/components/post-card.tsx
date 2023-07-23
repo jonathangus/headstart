@@ -1,9 +1,9 @@
-import { HeartIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
-import { PostEntity } from "shared-types";
-import { ExternalLinkIcon } from "@radix-ui/react-icons";
+import { HeartIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
+import { PostEntity } from 'shared-types';
+import { ExternalLinkIcon } from '@radix-ui/react-icons';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 import {
   Card,
@@ -12,14 +12,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
-import { CollectPost } from "./collect-post";
+} from '../components/ui/card';
+import { CollectPost } from './collect-post';
 
 type Props = {
   post: PostEntity;
 };
 export function PostCard({ post, height }: Props) {
-  const Wrapper = post.publicationId ? Link : "div";
+  console.log(height);
+  const Wrapper = post.publicationId ? Link : 'div';
   return (
     <Card className="w-full overflow-hidden mb-4">
       <div>
