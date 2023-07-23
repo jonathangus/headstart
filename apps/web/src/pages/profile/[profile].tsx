@@ -96,7 +96,7 @@ export const getStaticProps = async ({ params }) => {
     "0x" + Number(user.profileId).toString(16)
   );
 
-  return { props: { user, posts } };
+  return { props: { user, posts }, revalidate: 5 };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {

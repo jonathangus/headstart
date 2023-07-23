@@ -26,7 +26,6 @@ export function ClaimModal() {
   const { user, isClaimed } = useProfileContext();
   const [step, setSteps] = useState(1);
   const [loading, setLoading] = useState(false);
-  const { address: account } = useAccount();
   const { toast } = useToast();
   const { login, isLoggingIn, safeAuthSignInResponse } = useSafeKitContext();
 
@@ -133,7 +132,7 @@ export function ClaimModal() {
                 <Button
                   onClick={() => {
                     mutate({
-                      receiver: account,
+                      receiver: safeAuthSignInResponse?.eoa,
                       tokenId: user.tokenId,
                     });
                   }}

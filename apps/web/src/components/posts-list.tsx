@@ -8,7 +8,20 @@ type Props = {
 };
 
 export function PostsList({ items, sameHeight }: Props) {
-  console.log(items);
+  const getHeight = (i) => {
+    if (sameHeight) {
+      return 'h-[275px]';
+    }
+
+    if (i % 1 === 0) {
+      return 'h-[200px]';
+    } else if (i % 3 === 0) {
+      return 'h-[320px]';
+    }
+
+    return 'h-[275px]';
+  };
+
   return (
     <div className="columns-2 md:columns-3 lg:columns-4">
       {items.map((post, i) => (
