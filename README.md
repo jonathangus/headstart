@@ -34,8 +34,11 @@ https://github.com/jonathangus/headstart/blob/main/apps/web/src/context/safe-kit
 
 ### The Graph
 **New Headstart Subgraph:**
-https://thegraph.com/hosted-service/subgraph/0xpilou/ethcc-headstart
 
+Headstart Subgraph indexes each content creator profile. The profile entity features the tokenbound account address, its owner, token identifier, the lens handle that it owns and the lens profile identifier associated to that handle. 
+
+The profile entity is as follow :
+```
 type Profile @entity {
   id: String!
   accountAddress: Bytes!
@@ -47,9 +50,14 @@ type Profile @entity {
   transactionHash: Bytes!
   profileId: BigInt!
 }
+```
+[Link to Headstart Subgraph](https://thegraph.com/hosted-service/subgraph/0xpilou/ethcc-headstart)
+[Link to our implementation](https://github.com/jonathangus/headstart/tree/main/apps/the-graph)
+
 
 **Best use of Existing subgraph, our implementation:**
-https://github.com/jonathangus/headstart/tree/main/apps/the-graph
+
+
 
 ### SAFE
 Utilizing SAFE{Core} Account Abstraction SDk we used SAFE Account Abstraction for creating what we believe could be a future onboarding mechanism. By incentivizing creators with content they already created they can already start reaping the benefits of accumulating followers and collecting (funds). But to naturally onboard them to transfer the ownership of the Token Bound Account ERC-6651 we utilize Web3Auth social login and in the background a fully functioning SAFE wallet.
