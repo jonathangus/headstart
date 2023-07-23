@@ -32,7 +32,6 @@ export const service: Service = {
     }
 
     const data = await getDribbleContent(args.name);
-    console.log(data);
     console.log('uploading to ipfs...');
 
     const postsPromises = data.nodes.map(async (post) => {

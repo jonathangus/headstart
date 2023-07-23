@@ -2,6 +2,7 @@ import { headstartPointer, nftABI } from 'abi';
 import { createContext, PropsWithChildren, useContext } from 'react';
 import { UserEntity } from 'shared-types';
 import { useContractRead } from 'wagmi';
+import { polygonMumbai } from 'wagmi/chains';
 
 type ProfileContext = {
   user: UserEntity;
@@ -29,8 +30,10 @@ export const ProfileContextProvider = ({
     functionName: 'ownerOf',
     args: [BigInt(Number(user.tokenId))],
     watch: true,
+    chainId: polygonMumbai.id,
   });
 
+  console.log(owner);
   const isClaimed = owner.toLowerCase() !== DEFAULT_OWNER.toLowerCase();
 
   const value = {
