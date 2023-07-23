@@ -66,7 +66,7 @@ Fill `.env` with relevants variables
 ## ETH Paris '23 sponsors & bounties
 
 ### Polygon
-🤝 Deployed to Mumbai and Polygon powering a core part of the Headstart ecosystem, Lens Protocol. Utilizing SAFE{Core} Account Abstraction SDk we used SAFE Account Abstraction for creating what we believe could be a future onboarding mechanism. By incentivizing creators with content they already created they can already start reaping the benefits of accumulating followers and collecting (funds). But to naturally onboard them to transfer the ownership of the Token Bound Account ERC-6651 we utilize Web3Auth social login and in the background a fully functioning SAFE wallet.
+🤝 Deployed to Mumbai and Polygon powering a core part of the Headstart ecosystem, Lens Protocol. Utilizing SAFE{Core} Account Abstraction SDk we used SAFE Account Abstraction for creating what we believe could be a future onboarding mechanism. By incentivizing creators with content they already created they can already start reaping the benefits of accumulating followers and collecting (funds). But to naturally onboard them to transfer the ownership of the Token Bound Account ERC-6551 we utilize Web3Auth social login and in the background a fully functioning SAFE wallet.
 
 [Link to the relevant section of code](https://github.com/jonathangus/headstart/blob/main/apps/web/src/context/safe-kit-auth-context.tsx)
 
