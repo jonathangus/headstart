@@ -71,11 +71,7 @@ const Page = (props: Props) => {
                 </p>
               </div>
             </div>
-            {/*             <div className="flex flex-row gap-4">
-              <ClaimModal />
-            </div> */}
           </div>
-
           <PostsList sameHeight items={posts || []} />
         </ProfileContextProvider>
       </SafeKitContextProvider>
