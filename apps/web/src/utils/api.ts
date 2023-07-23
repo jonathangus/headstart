@@ -69,7 +69,8 @@ export const getPosts = async (ids: string[]): Promise<PostEntity[]> => {
     return {
       publicationId: item.id,
       image: item.metadata.image,
-      title: item.metadata.content,
+      title: item.metadata.content || item.metadata.name,
+      description: item.metadata.description,
       handle: item.profile.handle,
       mocked: false,
       service: 'Dribbble',
@@ -174,10 +175,11 @@ export const getPostsByUser = async (profileId: string): Promise<any> => {
     return {
       publicationId: item.id,
       image: item.metadata.image,
-      title: item.metadata.content,
       handle: item.profile.handle,
       mocked: false,
       service: 'Dribbble',
+      title: item.metadata.content || item.metadata.name,
+      description: item.metadata.description,
     };
   });
 };

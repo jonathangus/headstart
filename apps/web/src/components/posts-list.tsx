@@ -8,6 +8,7 @@ type Props = {
 };
 
 export function PostsList({ items, sameHeight }: Props) {
+  console.log(items);
   return (
     <div className="columns-2 md:columns-3 lg:columns-4">
       {items.map((post, i) => (

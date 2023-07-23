@@ -23,6 +23,7 @@ export type PostEntity = {
   image: string;
   title: string;
   handle: string;
+  description?: string;
   postId: string;
   mocked: boolean;
   service: string;
