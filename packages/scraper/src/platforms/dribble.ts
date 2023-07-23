@@ -1,17 +1,17 @@
-import { Service } from 'shared-types';
-import { v4 as uuidv4 } from 'uuid';
-import { uploadImageToIpfs, uploadToIpfs } from '../ipfs';
+import { Service } from "shared-types";
+import { v4 as uuidv4 } from "uuid";
+import { uploadImageToIpfs, uploadToIpfs } from "../ipfs";
 
-import { getDribbleContent } from './mirror';
+import { getDribbleContent } from "./mirror";
 
-const SERVICE = 'dribbble';
+const SERVICE = "dribbble";
 const dryRun = false;
 
 export const service: Service = {
   sync: async (args) => {
     if (dryRun) {
       let imageURI =
-        'https://ipfs.io/ipfs/QmcfP6PSQFzxMYkCZY88VtR5TZcq58gvQg6PTpL5DvNrk2';
+        "https://ipfs.io/ipfs/QmcfP6PSQFzxMYkCZY88VtR5TZcq58gvQg6PTpL5DvNrk2";
 
       return {
         user: {
@@ -21,11 +21,11 @@ export const service: Service = {
         posts: [
           {
             contentURI:
-              'https://lavender-adequate-dragon-359.mypinata.cloud/ipfs/QmWFfFBZNJ35RAJKZo7qLTpuXe2xH57TRcfUAW76x7ABaL',
+              "https://lavender-adequate-dragon-359.mypinata.cloud/ipfs/QmWFfFBZNJ35RAJKZo7qLTpuXe2xH57TRcfUAW76x7ABaL",
           },
           {
             contentURI:
-              'https://lavender-adequate-dragon-359.mypinata.cloud/ipfs/QmWFfFBZNJ35RAJKZo7qLTpuXe2xH57TRcfUAW76x7ABaL',
+              "https://lavender-adequate-dragon-359.mypinata.cloud/ipfs/QmWFfFBZNJ35RAJKZo7qLTpuXe2xH57TRcfUAW76x7ABaL",
           },
         ],
       };
@@ -33,30 +33,30 @@ export const service: Service = {
 
     const data = await getDribbleContent(args.name);
 
-    console.log('uploading to ipfs...');
+    console.log("uploading to ipfs...");
 
     const postsPromises = data.nodes.map(async (post) => {
       // upload to ipfs
       const description = `view full content on ${post.link}`;
       const name = post.title;
       const data = {
-        version: '1.0.0',
+        version: "1.0.0",
         metadata_id: uuidv4(),
         description,
         image: post.src,
-        imageMimeType: 'image/png',
+        imageMimeType: "image/png",
         name,
-        attributes: [{ traitType: 'type', value: 'POST' }],
+        attributes: [{ traitType: "type", value: "POST" }],
         media: [
           {
             item: post.src,
-            type: 'image/png',
-            altTag: '',
+            type: "image/png",
+            altTag: "",
           },
         ],
-        appId: 'eth cc',
-        locale: 'en',
-        mainContentFocus: 'IMAGE',
+        appId: "eth cc",
+        locale: "en",
+        mainContentFocus: "IMAGE",
       };
       const contentURI = await uploadToIpfs(data);
 

@@ -14,7 +14,7 @@ export function AllPosts({ realPosts }: Props) {
   const items = [...realPosts, ...data].filter((post) => post.image);
   return (
     <div>
-      <PostsList items={items} />
+      <PostsList items={items} sameHeight={false} />
     </div>
   );
 }

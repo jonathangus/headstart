@@ -19,6 +19,7 @@ type Props = {
   post: PostEntity;
 };
 export function PostCard({ post, height }: Props) {
+  console.log(height);
   const Wrapper = post.publicationId ? Link : 'div';
   return (
     <Card className="w-full overflow-hidden mb-4">
@@ -29,12 +30,12 @@ export function PostCard({ post, height }: Props) {
           <img className="h-full object-cover object-center" src={post.image} />
         </CardHeader>
         <CardContent className="p-6 pb-0">
-          <CardDescription className="pb-2 text-neutral-400">
+          <CardDescription className="pb-0 text-neutral-400">
             <Link
               className="hover:text-black mb-2 block"
               href={`/profile/${post.handle}`}
             >
-              <div>@ {post.handle}</div>
+              <div>@{post.handle}</div>
             </Link>
           </CardDescription>
           <CardTitle>{post.title}</CardTitle>

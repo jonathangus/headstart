@@ -21,6 +21,7 @@ import { useSafeKitContext } from "@/context/safe-kit-auth-context";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import { Badge } from "@/components/ui/badge";
+import { CheckCircledIcon } from "@radix-ui/react-icons";
 
 export function ClaimModal() {
   const { user, isClaimed } = useProfileContext();
@@ -50,7 +51,7 @@ export function ClaimModal() {
   });
 
   if (isClaimed) {
-    return <div>verified ✅</div>;
+    return <Badge className="mr-3 py-2 bg-green-600">Verified</Badge>;
   }
 
   const authIt = () => {

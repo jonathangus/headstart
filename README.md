@@ -1,56 +1,81 @@
-# HEADSTART ONCHAIN
+# HEADSTART
 
-insert description
+We’re looking to nudge web2 creators over to the open and decentralized economy. Mirroring their existing web2 content and deploying it via token bound accounts (ERC-6551), their creations are minted as NFTs within the token bound account and other people can collect the posts. The funds will be accumulated into the account and when the original creator is ready, they RECLAIM their ownership and we’ll transfer the ERC-6551 to their new SAFE account abstraction wallet. 
+
+1. We’ll mirror the content from popular inspiration and portfolio sites.
+
+2. Deploy a token bound account for each of the creators with a lens handle and thereafter the creations as posts.
+
+3. The posts generate tips from the community via collects. The funds are stored in the respective token bound account.
+
+4. The creators can go in and claim their profile, validate using their source account and we’ll initiate a transfer to the real owner to their new SAFE account abstraction wallet.
+
+_We’re all looking for cool ways to onboard ✨the next billion users✨_
+
+
+<img width="400" alt="Creating_Content_Creator_Profile_Onchain" src="https://github.com/jonathangus/headstart/assets/42701407/6a32bba2-8595-4f9b-9d27-f62add6013b1">
+
+<img width="400" alt="Mirroring_web2_content_on_Lens" src="https://github.com/jonathangus/headstart/assets/42701407/55586fb5-c02e-4672-b517-1f5dbe5d9568">
+
+<img width="400" alt="Enabling_fans_to_support_content_creators" src="https://github.com/jonathangus/headstart/assets/42701407/029d991d-fcc0-41db-bb8e-6159e12d52ab">
+
+<img width="400" alt="Mirroring_web2_content_on_Lens" src="https://github.com/jonathangus/headstart/assets/42701407/9ce20900-1fe4-48b1-b992-7f542f53d43d">
+
+
 
 # Sponsor & Bounties
 
-### Covalent
-
-Fetching the asset data of ERC 20/721/1155 across all swosh.cash supported chains via Covalent unified API. One challenge we had was that we were not possible to get metadata because we had to use no-nft-fetch=true but a great support for multichain dapps.
-
-### Lens
-
-integrated Lens following used as an address book to easily find recipients for your token transfers. Almost like a Lens-transfer ;)
-
-### Future is multichain!
-
 ### Polygon
+🤝 Deployed to Mumbai and Polygon powering a core part of the Headstart ecosystem, Lens Protocol. Utilizing SAFE{Core} Account Abstraction SDk we used SAFE Account Abstraction for creating what we believe could be a future onboarding mechanism. By incentivizing creators with content they already created they can already start reaping the benefits of accumulating followers and collecting (funds). But to naturally onboard them to transfer the ownership of the Token Bound Account ERC-6651 we utilize Web3Auth social login and in the background a fully functioning SAFE wallet.
 
-The future of the Ethereum ecosystem is multichain, and polygon has a proven track record of bringing in fast and cheap transaction and a thriving community. Being the home to Lens and newly moved Yoots it’s a chain that would benefit greately from a new and easy way to transfer tokens around community members and for offloading from hot to cold storage.
+[Link to the relevant section of code](https://github.com/jonathangus/headstart/blob/main/apps/web/src/context/safe-kit-auth-context.tsx)
 
-We want to push this tool on Polygon because the massive community and we believe that we can satisfy its needs! By delivering a better UX and empowering NFT communitys with easier transfers.
 
-### Base
+### The Graph
+**New Headstart Subgraph:**
 
-Simple and smooth deployment, we also created a faucet for people to easily get their hands on their first BASE NFT via https://swosh.cash/faucet
-to also help the future base devs to be up and running to try with free mint ERC 20/721/1155.
+Headstart Subgraph indexes each content creator profile. The profile entity features the tokenbound account address, its owner, token identifier, the Lens handle that it owns and the Lens profile identifier associated to that handle. 
 
-### Scroll
+The profile entity is as follow :
+```
+type Profile @entity {
+  id: String!
+  accountAddress: Bytes!
+  ownedBy: Bytes! 
+  tokenId: BigInt!
+  handle: String! 
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  profileId: BigInt!
+}
+```
+[Link to Headstart Subgraph](https://thegraph.com/hosted-service/subgraph/0xpilou/ethcc-headstart)
 
-Great experience of Scroll alphanet: open the docs, check the rpc and we we're done! Only challenge we had was that scroll is not supported by wagmi so we had some small issues with the config. We're strong believers in the growth of scroll zkEVM with lower cost+shorter block times and higher throughput! Looking forward for a etherscan block explorer. Deployed on Scroll as well as integrated with lens! Scroll ♥ Lens | Cross-chain Decentralized Social Media
+[Link to our implementation](https://github.com/jonathangus/headstart/tree/main/apps/the-graph)
 
-### Infura
 
-Even though we tried getting access to the Infura NFT API throughout the hackathon we didn't get access. However, we believe it could be a great complement in getting access to NFT data and not having a single point of failure would be beneficial.
+**Best use of Existing subgraph, our implementation:**
+
+
+
+### SAFE
+Utilizing SAFE{Core} Account Abstraction SDk we used SAFE Account Abstraction for creating what we believe could be a future onboarding mechanism. By incentivizing creators with content they already created they can already start reaping the benefits of accumulating followers and collecting (funds). But to naturally onboard them to transfer the ownership of the Token Bound Account ERC-6651 we utilize Web3Auth social login and in the background a fully functioning SAFE wallet.
+
+Link to implementation:
+https://github.com/jonathangus/headstart/blob/main/apps/web/src/context/safe-kit-auth-context.tsx
+
+### ApeCoin DAO
+Using the ERC-6551 and SAFE Account Abstraction Wallet we believe this has true potential to benefit the community, properly incentivizing more people to join the ecosystem and put even more great content onchain!
+
+### NOUNS
+We kept the Nounish vibes, Headstart ⌐◨-◨ looking at creating a new onboarding mechanism utilizing the latest tech and exploring the realm of possibilities.
 
 ### Headstart Onchain Contract Address Registry
 
 | Chain  | Address                                    | Explorer                                                                          |
 | ------ | ------------------------------------------ | --------------------------------------------------------------------------------- |
 | mumbai | 0x5AaE213043e6378BEA5ca4d6f8e37e9DC80Edf9c | https://mumbai.polygonscan.com/address/0x5AaE213043e6378BEA5ca4d6f8e37e9DC80Edf9c |
-
-### Headstart Onchain Flow
-
-- Sending 1 erc20 token and 1 erc721 will only trigger regular transfer methods
-  <img width="639" alt="Skärmavbild 2023-03-04 kl  20 47 51" src="https://user-images.githubusercontent.com/7723195/222940647-f19ef31f-a545-4b83-914f-d2f7865c1ee9.png">
-
-- When sending multiple tokens of the same erc standard we calculate if it is more worth doing approval + batch vs doing multiple single transfers
-  <img width="639" alt="Skärmavbild 2023-03-04 kl  20 48 00" src="https://user-images.githubusercontent.com/7723195/222940646-78a7af31-a17b-4d37-a7f3-885646900530.png">
-
-- When sending multiple tokens of different types we reuse the same gas calculation and make one batch call with erc20 + erc721 + erc1155
-  <img width="639" alt="Skärmavbild 2023-03-04 kl  20 48 16" src="https://user-images.githubusercontent.com/7723195/222940645-aaf842d0-4a96-450d-af41-b47520df16cb.png">
-
-NOTE: For each group of transactions we also take into consideration if a user has approved an asset before and if the receiver is single or multiple to save gas while iterating the batch.
 
 ### Core packages
 

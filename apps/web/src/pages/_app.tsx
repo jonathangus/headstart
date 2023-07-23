@@ -6,20 +6,17 @@ import {
   getDefaultWallets,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import {
-  polygonMumbai,
-} from 'wagmi/chains';
+import { polygonMumbai } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 
 import { Toaster } from '@/components/ui/toaster';
 import { LensContextProvider } from '@/context/lens-context';
+import Link from 'next/link';
+import { Logo } from '@/components/logo';
 
 const queryClient = new QueryClient();
 const inter = Inter({ subsets: ['latin'] });
@@ -51,10 +48,13 @@ export default function App({ Component, pageProps }: AppProps) {
         <RainbowKitProvider chains={chains}>
           <LensContextProvider>
             <>
-              <header className="flex justify-end p-4">
+              <header className="flex flex-1 justify-between items-center w-full p-4">
+                <Link href="/">
+                  <Logo />
+                </Link>
                 <ConnectButton />
               </header>
-              <main className="w-full p-24 flex flex-col place-content-center">
+              <main className="w-full max-w-[1300px] p-24 flex flex-col place-content-center">
                 <Component {...pageProps} />
               </main>
               <Toaster />
