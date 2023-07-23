@@ -32,6 +32,7 @@ export const service: Service = {
     }
 
     const data = await getDribbleContent(args.name);
+
     console.log('uploading to ipfs...');
 
     const postsPromises = data.nodes.map(async (post) => {
@@ -57,8 +58,6 @@ export const service: Service = {
         locale: 'en',
         mainContentFocus: 'IMAGE',
       };
-
-      console.log(data);
       const contentURI = await uploadToIpfs(data);
 
       return {

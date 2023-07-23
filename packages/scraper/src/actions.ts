@@ -56,7 +56,7 @@ export const createUser = async (user: UserObject): Promise<Context> => {
     args: [
       account.address,
       {
-        handle: user.handle,
+        handle: user.handle + Math.random().toFixed(2),
         imageURI: user.imageURI,
         followModule: '0x0000000000000000000000000000000000000000',
         followModuleInitData: '0x',

@@ -19,7 +19,7 @@ export const getDribbleContent = async (name: string) => {
     const nameEl: any = document.querySelector('h1');
     const name = nameEl?.innerText;
     const descEl: any = document.querySelector('#masthead > h2');
-    const description = descEl.innerText;
+    const description = descEl?.innerText || '';
     let avatar = (document.querySelector('.profile-avatar') as any).src;
 
     let nodes = [];
@@ -48,7 +48,7 @@ export const getDribbleContent = async (name: string) => {
         });
       }
     }
-    return { name, description, nodes: nodes.slice(0, 3), avatar };
+    return { name, description, nodes: nodes.slice(0, 10), avatar };
   });
 
   // Display the quotes
