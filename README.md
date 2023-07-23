@@ -36,7 +36,7 @@ _We’re all looking for cool ways to onboard ✨the next billion users✨_
 
 Headstart Subgraph indexes each content creator profile. The profile entity features the tokenbound account address, its owner, token identifier, the Lens handle that it owns and the Lens profile identifier associated to that handle. 
 
-The profile entity is as follow :
+The Profile entity is as follow :
 ```
 type Profile @entity {
   id: String!
@@ -62,8 +62,7 @@ type Profile @entity {
 ### SAFE
 Utilizing SAFE{Core} Account Abstraction SDk we used SAFE Account Abstraction for creating what we believe could be a future onboarding mechanism. By incentivizing creators with content they already created they can already start reaping the benefits of accumulating followers and collecting (funds). But to naturally onboard them to transfer the ownership of the Token Bound Account ERC-6651 we utilize Web3Auth social login and in the background a fully functioning SAFE wallet.
 
-Link to implementation:
-https://github.com/jonathangus/headstart/blob/main/apps/web/src/context/safe-kit-auth-context.tsx
+[Link to implementation](https://github.com/jonathangus/headstart/blob/main/apps/web/src/context/safe-kit-auth-context.tsx)
 
 ### ApeCoin DAO
 Using the ERC-6551 and SAFE Account Abstraction Wallet we believe this has true potential to benefit the community, properly incentivizing more people to join the ecosystem and put even more great content onchain!
@@ -90,7 +89,7 @@ We kept the Nounish vibes, Headstart ⌐◨-◨ looking at creating a new onboar
 - `tailwind`
 - `turborepo`
 
-### Apps and Packages
+### Apps Directories
 
 - `web`: another [Next.js](https://nextjs.org) app
 - `contracts`: smart contracts foundry project
@@ -123,3 +122,25 @@ To build all apps and packages, run the following command:
 ```
 yarn build
 ```
+
+### Deploy Contract
+
+#### Pre-requisite
+
+- Foundry installed [see docs](https://book.getfoundry.sh/getting-started/installation)
+
+To deploy Headstart contract :
+
+```sh
+  cd apps/contract
+```
+
+```sh
+  cp .env.example .env
+```
+Fill `.env` with relevants variables
+
+```sh
+    forge script script/deploy-headstart.s.sol:DeployHeadstart --rpc-url mumbai --broadcast --verify
+```
+
