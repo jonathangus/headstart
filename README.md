@@ -41,16 +41,20 @@ Even though we tried getting access to the Infura NFT API throughout the hackath
 
 ### Headstart Onchain Flow
 
-- Sending 1 erc20 token and 1 erc721 will only trigger regular transfer methods
-  <img width="639" alt="Skärmavbild 2023-03-04 kl  20 47 51" src="https://user-images.githubusercontent.com/7723195/222940647-f19ef31f-a545-4b83-914f-d2f7865c1ee9.png">
+- Step 1
+  <img width="1920" alt="Creating_Content_Creator_Profile_Onchain" src="https://github.com/jonathangus/headstart/assets/76021631/127001cf-06d6-4ff0-b144-f7a6f4b54f0a">
 
-- When sending multiple tokens of the same erc standard we calculate if it is more worth doing approval + batch vs doing multiple single transfers
-  <img width="639" alt="Skärmavbild 2023-03-04 kl  20 48 00" src="https://user-images.githubusercontent.com/7723195/222940646-78a7af31-a17b-4d37-a7f3-885646900530.png">
 
-- When sending multiple tokens of different types we reuse the same gas calculation and make one batch call with erc20 + erc721 + erc1155
-  <img width="639" alt="Skärmavbild 2023-03-04 kl  20 48 16" src="https://user-images.githubusercontent.com/7723195/222940645-aaf842d0-4a96-450d-af41-b47520df16cb.png">
+- Step 2
+<img width="1920" alt="Mirroring_web2_content_on_Lens" src="https://github.com/jonathangus/headstart/assets/76021631/4ddaeb6e-8c6d-47b0-b158-f69b2ba85ffb">
 
-NOTE: For each group of transactions we also take into consideration if a user has approved an asset before and if the receiver is single or multiple to save gas while iterating the batch.
+
+- Step 3
+<img width="1920" alt="Enabling_fans_to_support_content_creators" src="https://github.com/jonathangus/headstart/assets/76021631/9c72c0ef-80c8-448b-8b22-ce2834ab0d21">
+
+- Step 4
+<img width="1920" alt="Onboarding_Content_Creator" src="https://github.com/jonathangus/headstart/assets/76021631/ba2ec178-5155-4eba-a474-dee1efb4050d">
+
 
 ### Core packages
 
