@@ -1,18 +1,18 @@
-import { aaImplementationABI, erc20ABI } from 'abi';
-import { encodeFunctionData } from 'viem';
+import { aaImplementationABI, erc20ABI } from "abi";
+import { encodeFunctionData } from "viem";
 import {
   useAccount,
   useBalance,
   useContractWrite,
   useWaitForTransaction,
-} from 'wagmi';
-import { polygonMumbai } from 'wagmi/chains';
+} from "wagmi";
+import { polygonMumbai } from "wagmi/chains";
 
-import { WMATIC } from '@/constants';
-import { useProfileContext } from '@/context/profile-context';
+import { WMATIC } from "@/constants";
+import { useProfileContext } from "@/context/profile-context";
 
-import { Button } from './ui/button';
-import { useToast } from './ui/use-toast';
+import { Button } from "./ui/button";
+import { useToast } from "./ui/use-toast";
 
 export function WithdrawFunds() {
   const { user, ownerOfToken } = useProfileContext();
@@ -24,7 +24,11 @@ export function WithdrawFunds() {
   });
   const { address: account } = useAccount();
 
-  const amount = <div>{balance?.data?.formatted || 0} WMATIC collected</div>;
+  const amount = (
+    <div className="text-2xl text-neutral-400">
+      {balance?.data?.formatted || 0} WMATIC collected
+    </div>
+  );
   const { toast } = useToast();
 
   const {
@@ -34,7 +38,7 @@ export function WithdrawFunds() {
   } = useContractWrite({
     abi: aaImplementationABI,
     address: user.accountAddress as `0x${string}`,
-    functionName: 'executeCall',
+    functionName: "executeCall",
     value: BigInt(0),
   });
 
@@ -42,8 +46,8 @@ export function WithdrawFunds() {
     hash: data?.hash,
     onSuccess: () => {
       toast({
-        title: 'Withdraw success! ',
-        description: 'USDC claimed for TBA to EOA.',
+        title: "Withdraw success! ",
+        description: "USDC claimed for TBA to EOA.",
       });
     },
   });
@@ -65,7 +69,7 @@ export function WithdrawFunds() {
   const withdraw = () => {
     const data = encodeFunctionData({
       abi: erc20ABI,
-      functionName: 'transfer',
+      functionName: "transfer",
       args: [account, balance.data?.value || BigInt(0)],
     });
 
