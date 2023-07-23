@@ -63,33 +63,30 @@ Using the ERC-6551 and SAFE Account Abstraction Wallet we believe this has true 
 ### NOUNS
 We kept the Nounish vibes, Headstart ⌐◨-◨ looking at creating a new onboarding mechanism utilizing the latest tech and exploring the realm of possibilities.
 
+### Headstart Onchain Contract Address Registry
 
+| Chain  | Address                                    | Explorer                                                                          |
+| ------ | ------------------------------------------ | --------------------------------------------------------------------------------- |
+| mumbai | 0x5AaE213043e6378BEA5ca4d6f8e37e9DC80Edf9c | https://mumbai.polygonscan.com/address/0x5AaE213043e6378BEA5ca4d6f8e37e9DC80Edf9c |
 
 ### Core packages
 
-- `ethers`
-- `wagmi`
-- `hardhat`
-- `next.js`
-- `typechain`
-
-### Features?
-
-- built on top of wagmi (❤️) with recognisable api
-- write and read hooks are typesafe
-- sync deployments to frontend so you dont manually have to update addresses
-- no theming or css
+- `ERC-6551`
+- `TheGraph`
+- `SAFE{CORE} Account abstraction SDK + Web3auth for social login`
+- `Wagmi`
+- `viem`
+- `LensClientSDK`
+- `Foundry`
+- `Next.js`
+- `tailwind`
+- `turborepo`
 
 ### Apps and Packages
 
 - `web`: another [Next.js](https://nextjs.org) app
-- `smart-contracts`: smart contracts with hardhat
-- `web3-config`: deployments, generated types from contract and common web3 config
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+- `contracts`: smart contracts foundry project
+- `the-graph`: TheGraph directory
 
 ### Utilities
 
