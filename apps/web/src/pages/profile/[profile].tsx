@@ -62,6 +62,7 @@ const Page = (props: Props) => {
                   <div className="flex flex-row gap-4">
                     <h1 className="text-2xl">{user.handle}.lens</h1>
                   </div>
+
                   <div className="text-xs mb-3 text-gray-500">
                     {user.accountAddress}
                   </div>
